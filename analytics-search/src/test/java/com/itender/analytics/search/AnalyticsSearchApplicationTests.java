@@ -1,10 +1,10 @@
-package com.itender.analytics.common;
+package com.itender.analytics.search;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AnalyticsCommonApplicationTests {
+class AnalyticsSearchApplicationTests {
 
     @Test
     void contextLoads() {
