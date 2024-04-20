@@ -1,0 +1,1393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sigo.idata.platform.tag.mapper.mysql.SqlTemplateMapper">
+
+
+    <select id="intersect" resultType="java.lang.String">
+        select user_acct
+        from (select sqlLeft.user_acct
+              from (${sqlLeft}) as sqlLeft
+                       join (${sqlRight}) as sqlRight
+                            on sqlLeft.user_acct = sqlRight.user_acct) temp
+        group by user_acct
+    </select>
+
+    <select id="union" resultType="java.lang.String">
+        select user_acct
+        from (select user_acct
+              from (${sqlLeft}) as sqlLeft
+              union all
+              select user_acct
+              from (${sqlRight}) as sqlRight) temp
+        group by user_acct
+    </select>
+
+    <select id="minus" resultType="java.lang.String">
+        select user_acct
+        from (select sqlLeft.user_acct
+              from (${sqlRight}) as sqlLeft
+                       left join (${sqlLeft}) as sqlRight on sqlLeft.user_acct = sqlRight.user_acct
+              where sqlRight.user_acct is null) temp
+        group by user_acct
+    </select>
+
+    <select id="vipParseDoCouponPrizeTemplate" resultType="java.lang.String">
+        select tmp.user_acct
+        from (
+        select user_acct
+        <if test="selectsum_1 != null and selectsum_1.size > 0">
+            ,
+            <foreach collection="selectsum_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+
+        from dws_user_coupon_prize_action
+        <where>
+            <if test="where_1 != null and where_1.size > 0">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+
+            <if test="where_3_relation == null or where_3_relation == 'and'">
+                <if test="where_3 != null and where_3.size > 0">
+                    <foreach collection="where_3" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test="where_3_relation != null and where_3_relation == 'or'">
+                <if test="where_3 != null and where_3.size > 0">
+                    and
+                    <foreach collection="where_3" item="item" separator="or" open="(" close=")">
+                        ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        group by user_acct
+        <if test="group_1 != null and group_1.size > 0">
+            ,
+            <foreach collection="group_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        ) tmp
+        <where>
+            <if test="where_2_relation == null or where_2_relation == 'and'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_2_relation != null and where_2_relation == 'or'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        or ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+    </select>
+
+
+    <select id="vipParseDoAndCouponPrizeTemplate" resultType="java.lang.String">
+        select tmp.user_acct
+        from (
+        select tmp.user_acct
+        <if test="select_1 != null and select_1.size > 0">
+            ,
+            <foreach collection="select_1" item="item" separator=",">
+                tmp.${item}
+            </foreach>
+        </if>
+        from (
+        select
+        user_acct
+
+        <if test="select_2 != null and select_2.size > 0">
+
+            ,
+
+            <foreach collection="select_2" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="selectsum_1 != null and selectsum_1.size > 0">
+
+            ,
+
+            <foreach collection="selectsum_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="rborcardinality_1 != null and rborcardinality_1.size > 0">
+
+            ,
+            <foreach collection="rborcardinality_1" item="item" separator=",">
+                ${item}
+
+            </foreach>
+        </if>
+        from ${table_1}
+        <where>
+            <if test="where_1 != null and where_1.size > 0">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+            <if test="where_3_relation == null or where_3_relation == 'and'">
+                <if test="where_3 != null and where_3.size > 0">
+                    <foreach collection="where_3" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_3_relation != null and where_3_relation == 'or'">
+                <if test="where_3 != null and where_3.size > 0">
+                    and
+                    <foreach collection="where_3" item="item" separator="or" open="(" close=")">
+                        ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+
+        group by user_acct
+
+        <if test="group_1 != null and group_1.size > 0">
+
+            ,
+
+            <foreach collection="group_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+
+        ) tmp
+        <where>
+            <if test="where_2_relation == null or where_2_relation == 'and'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_2_relation != null and where_2_relation == 'or'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        or ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        ) tmp
+        group by tmp.user_acct
+        <!--        <if test="having_1!=null and having_1.size>0">-->
+        <!--            having-->
+        <!--            <foreach collection="having_1" item="item" separator="and">-->
+        <!--                ${item}-->
+        <!--            </foreach>-->
+        <!--        </if>-->
+    </select>
+
+    <select id="vipParseNotDoCouponPrizeTemplate" resultType="java.lang.String">
+        select tmp.user_acct
+        from (
+        select t1.user_acct
+        from
+        <if test="table_1 != null and table_1 != ''">
+            ${table_1}
+        </if>
+        t1
+        left join dws_user_coupon_prize_action t2 on t1.user_acct = t2.user_acct
+        <if test="on_1 != null and on_1.size > 0">
+            <foreach collection="on_1" item="item">
+                and t1.${item} = t2.${item}
+            </foreach>
+        </if>
+        <if test="on_2 != null and on_2.size > 0">
+            <foreach collection="on_2" item="item">
+                and ${item}
+            </foreach>
+        </if>
+        <if test="where_1 != null and where_1.size > 0">
+            <foreach collection="where_1" item="item">
+                and t2.${item}
+            </foreach>
+        </if>
+        <if test="where_3 != null and where_3.size > 0">
+            <foreach collection="where_3" item="item">
+                and t2.${item}
+            </foreach>
+        </if>
+        <where>
+<!--            <if test="where_1 != null and where_1.size > 0">-->
+<!--                <foreach collection="where_1" item="item">-->
+<!--                    and t1.${item}-->
+<!--                </foreach>-->
+<!--            </if>-->
+            <if test="where_3 != null and where_3.size > 0">
+                <foreach collection="where_3" item="item">
+                    and t1.${item}
+                </foreach>
+            </if>
+<!--            <if test="where_4 != null and where_4.size > 0">-->
+<!--                <foreach collection="where_4" item="item">-->
+<!--                    and ${item}-->
+<!--                </foreach>-->
+<!--            </if>-->
+            <if test="where_4_relation == null or where_4_relation == 'and'">
+                <if test="where_4 != null and where_4.size > 0">
+                    <foreach collection="where_4" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test="where_4_relation != null and where_4_relation == 'or'">
+                <if test="where_4 != null and where_4.size > 0">
+
+                    and
+
+                    <foreach collection="where_4" item="item" separator="or" open="(" close=")">
+                        ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_5 != null and where_5.size > 0">
+                <foreach collection="where_5" item="item">
+                    and t1.${item}
+                </foreach>
+            </if>
+            <if test="where_6 != null and where_6.size > 0">
+                <foreach collection="where_6" item="item">
+                    and t1.${item}
+                </foreach>
+            </if>
+
+            and t2.user_acct is null
+        </where>
+        ) tmp
+        group by tmp.user_acct
+    </select>
+
+    <select id="vipParseSysUserTemplate" resultType="java.lang.String">
+        select
+        user_acct
+        from ${table_1}
+        <where>
+            <if test="where_1!=null and where_1.size>0">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+            <if test="arrayorwhere_1!=null and arrayorwhere_1.size>0">
+                <foreach collection="arrayorwhere_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+            <if test="wherenotnull_1!=null and wherenotnull_1.size>0">
+                <foreach collection="wherenotnull_1" item="item">
+                    AND ${item}
+                </foreach>
+            </if>
+            <if test="partOfArrayJudge_1 !=null and partOfArrayJudge_1.size>0 and partOfArray_1!=null and partOfArray_1.size>0">
+                <foreach collection="partOfArrayJudge_1" item="item">
+                    AND ${item}
+                </foreach>
+                <foreach collection="partOfArray_1" item="item">
+                    ${item}
+                </foreach>
+
+            </if>
+
+        </where>
+        <if test="havingsum_1!=null and havingsum_1.size>0">
+            group by user_acct
+            having
+            <foreach collection="havingsum_1" item="item" separator="and">
+                ${item}
+            </foreach>
+        </if>
+        <if test="havingmin_1!=null and havingmin_1.size>0">
+            group by user_acct
+            having
+            <foreach collection="havingmin_1" item="item" separator="and">
+                ${item}
+            </foreach>
+        </if>
+        <if test="havingmax_1!=null and havingmax_1.size>0">
+            group by user_acct
+            having
+            <foreach collection="havingmax_1" item="item" separator="and">
+                ${item}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="vipParseAggMaxSceneTemplate" resultType="java.lang.String">
+        select user_acct from (
+        select user_acct
+        <if test="channelLevel==1">
+            ,prmry_busi_mdl_cd
+        </if>
+        <if test="channelLevel==3">
+            ,chnl_str_cd
+        </if>
+        <if test="select_1!=null and  select_1.size>0">
+            <foreach collection="select_1" item="item">
+                ,${item}
+            </foreach>
+        </if>
+        ,row_number() over (partition by user_acct
+        <if test="channelLevel==1">
+            ,prmry_busi_mdl_cd
+        </if>
+        <if test="channelLevel==3">
+            ,chnl_str_cd
+        </if>
+        <if test="select_1!=null and  select_1.size>0">
+            <foreach collection="select_1" item="item">
+                ,${item}
+            </foreach>
+        </if>
+        order by sumSort desc,maxSort desc
+        ) a
+        from (
+        select user_acct
+        <if test="channelLevel==1">
+            ,prmry_busi_mdl_cd
+        </if>
+        <if test="channelLevel==3">
+            ,chnl_str_cd
+        </if>
+        <if test="select_2!=null and  select_1.size>0">
+            <foreach collection="select_2" item="item">
+                ,${item}
+            </foreach>
+        </if>
+        <if test="selectsum_1!=null and  selectsum_1.size>0">
+            <foreach collection="selectsum_1" item="item">
+                ,${item}
+            </foreach>
+        </if>
+
+        <if test="selectmax_1!=null and  selectmax_1.size>0">
+            <foreach collection="selectmax_1" item="item">
+                ,${item}
+            </foreach>
+        </if>
+
+        from ads_user_member_action_tag_app
+
+        <where>
+            <if test="where_1!=null and where_1.size>0">
+                <foreach collection="where_1" item="item">
+                    AND ${item}
+                </foreach>
+            </if>
+            <if test="wherenotnull_1!=null and wherenotnull_1.size>0">
+                <foreach collection="wherenotnull_1" item="item">
+                    AND ${item}
+                </foreach>
+            </if>
+        </where>
+        group by user_acct
+        <if test="channelLevel==1">
+            ,prmry_busi_mdl_cd
+        </if>
+        <if test="channelLevel==3">
+            ,chnl_str_cd
+        </if>
+        <if test="group_1!=null and  group_1.size>0">
+            <foreach collection="group_1" item="item" separator=",">
+                ,${item}
+            </foreach>
+        </if>
+        ) A
+        )B
+        <where>
+            a = 1
+            <if test="where_2!=null and  where_2.size>0">
+                <foreach collection="where_2" item="item">
+                    AND ${item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+    <select id="vipParseMaxSceneTemplate" resultType="java.lang.String">
+        select user_acct
+        from (select user_acct, prmry_busi_mdl_cd, max(fisrt_pay_time) fisrt_pay_time
+              from ads_user_member_action_tag_app
+              where prmry_busi_mdl_cd = 'SigoYao'
+                AND fisrt_pay_time is not null
+              group by user_acct, prmry_busi_mdl_cd) A
+        where fisrt_pay_time between '' and '';
+
+    </select>
+
+    <select id="vipParseMinSceneTemplate" resultType="java.lang.String">
+        select user_acct
+        from (select user_acct, prmry_busi_mdl_cd, min(fisrt_pay_time) fisrt_pay_time
+              from ads_user_member_action_tag_app
+              where prmry_busi_mdl_cd = 'SigoYao'
+                AND fisrt_pay_time is not null
+              group by user_acct, prmry_busi_mdl_cd ) A
+        where fisrt_pay_time between '' and '';
+
+    </select>
+
+    <select id="vipParseEventDoAndTemplate" resultType="java.lang.String">
+        select tmp.user_acct
+        from (
+        select tmp.user_acct
+        <if test="select_1 != null and select_1.size > 0">
+            ,
+            <foreach collection="select_1" item="item" separator=",">
+                tmp.${item}
+            </foreach>
+        </if>
+        from (
+            select
+        user_acct
+
+        <if test="select_2 != null and select_2.size > 0">
+
+            ,
+
+            <foreach collection="select_2" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="selectsum_1 != null and selectsum_1.size > 0">
+
+            ,
+
+            <foreach collection="selectsum_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="rborcardinality_1 != null and rborcardinality_1.size > 0">
+
+            ,
+            <foreach collection="rborcardinality_1" item="item" separator=",">
+                ${item}
+
+            </foreach>
+        </if>
+        from ${table_1}
+        <where>
+            <if test="where_1 != null and where_1.size > 0">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+
+            <if test="where_4_relation == null or where_4_relation == 'and'">
+                <if test="where_4 != null and where_4.size > 0">
+                    <foreach collection="where_4" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test="where_4_relation != null and where_4_relation == 'or'">
+                <if test="where_4 != null and where_4.size > 0">
+
+                    and
+
+                    <foreach collection="where_4" item="item" separator="or" open="(" close=")">
+                        ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+
+        group by user_acct
+
+        <if test="group_1 != null and group_1.size > 0">
+
+            ,
+
+            <foreach collection="group_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+
+        ) tmp
+
+        <where>
+            <if test="where_2_relation == null or where_2_relation == 'and'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_2_relation != null and where_2_relation == 'or'">
+                <if test="where_2 != null and where_2.size > 0">
+                    (
+                    <trim prefixOverrides="or ">
+                        <foreach collection="where_2" item="item" separator=" or ">
+                            ${item}
+                        </foreach>
+                    </trim>
+                    )
+                </if>
+            </if>
+
+            <if test="where_3 != null and top != ''">
+                <if test="where_3 != null and where_3.size > 0">
+                    <foreach collection="where_3" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        ) tmp
+        group by tmp.user_acct
+    </select>
+
+    <select id="vipParseDoTemplate" resultType="java.lang.String">
+        select tmp.user_acct
+        from (
+        select user_acct
+        <if test="selectsum_1 != null and selectsum_1.size > 0">
+            ,
+            <foreach collection="selectsum_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+
+        from dws_user_action_d
+        <where>
+            <if test="where_1 != null and where_1.size > 0">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+
+            <if test="where_3_relation == null or where_3_relation == 'and'">
+                <if test="where_3 != null and where_3.size > 0">
+                    <foreach collection="where_3" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test="where_3_relation != null and where_3_relation == 'or'">
+                <if test="where_3 != null and where_3.size > 0">
+                    and
+                    <foreach collection="where_3" item="item" separator="or" open="(" close=")">
+                        ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        group by user_acct
+        <if test="group_1 != null and group_1.size > 0">
+            ,
+            <foreach collection="group_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        ) tmp
+        <where>
+            <if test="where_2_relation == null or where_2_relation == 'and'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_2_relation != null and where_2_relation == 'or'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        or ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="vipParseDoAndTemplate" resultType="java.lang.String">
+        select tmp.user_acct
+        from (
+        select tmp.user_acct
+        <if test="select_1 != null and select_1.size > 0">
+            ,
+            <foreach collection="select_1" item="item" separator=",">
+                tmp.${item}
+            </foreach>
+        </if>
+        from (
+            select
+        user_acct
+
+        <if test="select_2 != null and select_2.size > 0">
+
+            ,
+
+            <foreach collection="select_2" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="selectsum_1 != null and selectsum_1.size > 0">
+
+            ,
+
+            <foreach collection="selectsum_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="rborcardinality_1 != null and rborcardinality_1.size > 0">
+
+            ,
+            <foreach collection="rborcardinality_1" item="item" separator=",">
+                ${item}
+
+            </foreach>
+        </if>
+        from ${table_1}
+        <where>
+            <if test="where_1 != null and where_1.size > 0">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+            <if test="where_3_relation == null or where_3_relation == 'and'">
+                <if test="where_3 != null and where_3.size > 0">
+                    <foreach collection="where_3" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_3_relation != null and where_3_relation == 'or'">
+                <if test="where_3 != null and where_3.size > 0">
+                    and
+                    <foreach collection="where_3" item="item" separator="or" open="(" close=")">
+                        ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+
+        group by user_acct
+
+        <if test="group_1 != null and group_1.size > 0">
+
+            ,
+
+            <foreach collection="group_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+
+        ) tmp
+        <where>
+            <if test="where_2_relation == null or where_2_relation == 'and'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_2_relation != null and where_2_relation == 'or'">
+                <if test="where_2 != null and where_2.size > 0">
+                    <foreach collection="where_2" item="item">
+                        or ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        ) tmp
+        group by tmp.user_acct
+        <!--        <if test="having_1!=null and having_1.size>0">-->
+        <!--            having-->
+        <!--            <foreach collection="having_1" item="item" separator="and">-->
+        <!--                ${item}-->
+        <!--            </foreach>-->
+        <!--        </if>-->
+    </select>
+
+    <select id="vipParseNotDoTemplate" resultType="java.lang.String">
+        select tmp.user_acct
+        from (
+        select t1.user_acct
+        from
+        <if test="table_1 != null and table_1 != ''">
+            ${table_1}
+        </if>
+        t1
+            left join dws_user_action_d t2 on t1.user_acct = t2.user_acct
+        <if test="on_1 != null and on_1.size > 0">
+            <foreach collection="on_1" item="item">
+                and t1.${item} = t2.${item}
+            </foreach>
+        </if>
+        <if test="where_1 != null and where_1.size > 0">
+            <foreach collection="where_1" item="item">
+                and t2.${item}
+            </foreach>
+        </if>
+        <if test="where_2 != null and where_2.size > 0">
+            <foreach collection="where_2" item="item">
+                and t2.${item}
+            </foreach>
+        </if>
+        <if test="where_4 != null and where_4.size > 0">
+            <foreach collection="where_4" item="item">
+                and t1.${item}
+            </foreach>
+        </if>
+        <where>
+            <if test="where_3 != null and where_3.size > 0">
+                <foreach collection="where_3" item="item">
+                    and t1.${item}
+                </foreach>
+            </if>
+
+            and t2.user_acct is null
+        </where>
+        ) tmp
+        group by tmp.user_acct
+    </select>
+
+    <select id="vipParseNotDoPayTemplate" resultType="java.lang.String">
+        select
+        tmp.user_acct
+        from (
+        select
+        t1.user_acct
+        from
+        ads_user_member_action_tag_app t1
+        left join
+        ads_rb_user_gds_cs_d
+        t2 on t1.user_acct = t2.user_acct
+        <if test="on_1!=null and on_1.size>0">
+            <foreach collection="on_1" item="item">
+                and t1.${item} = t2.${item}
+            </foreach>
+        </if>
+        <if test="where_1!=null and where_1.size>0">
+            <foreach collection="where_1" item="item">
+                and t2.${item}
+            </foreach>
+        </if>
+        <if test="where_4!=null and where_4.size>0">
+            <foreach collection="where_4" item="item">
+                and t1.${item}
+            </foreach>
+        </if>
+        <where>
+            <if test="where_3!=null and where_3.size>0">
+                <foreach collection="where_3" item="item">
+                    and t1.${item}
+                </foreach>
+            </if>
+            and t2.user_acct is null
+        </where>
+        ) tmp
+        group by tmp.user_acct
+    </select>
+
+    <select id="parseSysUserTemplate" resultType="java.lang.String">
+        select
+        user_acct
+        from ${table_1}
+        <where>
+            <if test="where_1!=null and where_1.size>0">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+            <if test="arrayorwhere_1!=null and arrayorwhere_1.size>0">
+                <foreach collection="arrayorwhere_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+            <if test="wherenotnull_1!=null and wherenotnull_1.size>0">
+                <foreach collection="wherenotnull_1" item="item">
+                    AND ${item}
+                </foreach>
+            </if>
+            <if test="partOfArrayJudge_1 !=null and partOfArrayJudge_1.size>0 and partOfArray_1!=null and partOfArray_1.size>0">
+                <foreach collection="partOfArrayJudge_1" item="item">
+                    AND ${item}
+                </foreach>
+                <foreach collection="partOfArray_1" item="item">
+                    ${item}
+                </foreach>
+
+            </if>
+
+        </where>
+        <if test="havingsum_1!=null and havingsum_1.size>0">
+        group by user_acct
+            having
+            <foreach collection="havingsum_1" item="item" separator="and">
+                 ${item}
+            </foreach>
+        </if>
+        <if test="havingmin_1!=null and havingmin_1.size>0">
+            group by user_acct
+            having
+            <foreach collection="havingmin_1" item="item" separator="and">
+                ${item}
+            </foreach>
+        </if>
+        <if test="havingmax_1!=null and havingmax_1.size>0">
+            group by user_acct
+            having
+            <foreach collection="havingmax_1" item="item" separator="and">
+                ${item}
+            </foreach>
+        </if>
+    </select>
+
+
+
+
+
+    <select id="parseNotDoTemplate" resultType="java.lang.String">
+        select
+        tmp.user_acct
+        from (
+        select
+        t1.user_acct
+        from
+        <if test="table_1!=null and table_1!=''">
+            ${table_1}
+        </if>
+        t1
+        left join dws_user_action_d t2 on t1.user_acct = t2.user_acct
+        <if test="on_1!=null and on_1.size>0">
+            <foreach collection="on_1" item="item">
+                and t1.${item} = t2.${item}
+            </foreach>
+        </if>
+        <if test="where_1!=null and where_1.size>0">
+            <foreach collection="where_1" item="item">
+                and t2.${item}
+            </foreach>
+        </if>
+        <if test="where_2!=null and where_2.size>0">
+            <foreach collection="where_2" item="item">
+                and t2.${item}
+            </foreach>
+        </if>
+        <if test="where_4!=null and where_4.size>0">
+            <foreach collection="where_4" item="item">
+                and t1.${item}
+            </foreach>
+        </if>
+        <where>
+            <if test="where_3!=null and where_3.size>0">
+                <foreach collection="where_3" item="item">
+                    and t1.${item}
+                </foreach>
+            </if>
+            and t2.user_acct is null
+        </where>
+        ) tmp
+        group by tmp.user_acct
+    </select>
+
+    <select id="parseNotDoPayTemplate" resultType="java.lang.String">
+        select
+        tmp.user_acct
+        from (
+        select
+        t1.user_acct
+        from
+        ads_user_oneid_action_tag_app_idm t1
+        left join
+        ads_rb_user_gds_cs_d_idm
+        t2 on t1.user_acct = t2.user_acct
+        <if test="on_1!=null and on_1.size>0">
+            <foreach collection="on_1" item="item">
+                and t1.${item} = t2.${item}
+            </foreach>
+        </if>
+        <if test="where_1!=null and where_1.size>0">
+            <foreach collection="where_1" item="item">
+                and t2.${item}
+            </foreach>
+        </if>
+        <if test="where_4!=null and where_4.size>0">
+            <foreach collection="where_4" item="item">
+                and t1.${item}
+            </foreach>
+        </if>
+        <where>
+            <if test="where_3!=null and where_3.size>0">
+                <foreach collection="where_3" item="item">
+                    and t1.${item}
+                </foreach>
+            </if>
+            and t2.user_acct is null
+        </where>
+        ) tmp
+        group by tmp.user_acct
+    </select>
+
+
+    <select id="parseDoTemplate" resultType="java.lang.String">
+        select
+        tmp.user_acct
+        from (
+        select
+        user_acct
+        <if test="selectsum_1!=null and selectsum_1.size>0">
+            ,
+            <foreach collection="selectsum_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+
+        from dws_user_action_d
+        <where>
+            <if test="where_1!=null and  where_1.size>0">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+
+            <if test="where_3_relation==null or where_3_relation=='and'">
+                <if test="where_3!=null and  where_3.size>0">
+                    <foreach collection="where_3" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test="where_3_relation!=null and where_3_relation =='or'">
+                <if test="where_3!=null and  where_3.size>0">
+                    and
+                    <foreach collection="where_3" item="item" separator="or" open="(" close=")">
+                         ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        group by user_acct
+        <if test="group_1!=null and group_1.size>0 ">
+            ,
+            <foreach collection="group_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        ) tmp
+        <where>
+            <if test="where_2_relation==null or where_2_relation=='and'">
+                <if test="where_2!=null and  where_2.size>0">
+                    <foreach collection="where_2" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_2_relation!=null and where_2_relation =='or'">
+                <if test="where_2!=null and  where_2.size>0">
+                    <foreach collection="where_2" item="item">
+                        or ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+    </select>
+
+    <select id="parseDoAndTemplate" resultType="java.lang.String">
+        select
+        tmp.user_acct
+        from (
+        select
+        tmp.user_acct
+        <if test="select_1!=null and  select_1.size>0">
+            ,
+            <foreach collection="select_1" item="item" separator=",">
+                tmp.${item}
+            </foreach>
+        </if>
+        from (
+        select
+        user_acct
+        <if test="select_2!=null and  select_2.size>0">
+            ,
+            <foreach collection="select_2" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="selectsum_1!=null and selectsum_1.size>0">
+            ,
+            <foreach collection="selectsum_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="rborcardinality_1!=null and rborcardinality_1.size>0">
+            ,
+            <foreach collection="rborcardinality_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        from ${table_1}
+        <where>
+            <if test="where_1!=null and where_1.size>0 ">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+            <if test="where_3_relation==null or where_3_relation=='and'">
+                <if test="where_3!=null and  where_3.size>0">
+                    <foreach collection="where_3" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_3_relation!=null and where_3_relation =='or'">
+                <if test="where_3!=null and  where_3.size>0">
+                    and
+                    <foreach collection="where_3" item="item" separator="or" open="(" close=")">
+                         ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        group by user_acct
+        <if test="group_1!=null and group_1.size>0 ">
+            ,
+            <foreach collection="group_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        ) tmp
+
+        <where>
+            <if test="where_2_relation==null or where_2_relation=='and'">
+                <if test="where_2!=null and  where_2.size>0">
+                    <foreach collection="where_2" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_2_relation!=null and where_2_relation =='or'">
+                <if test="where_2!=null and  where_2.size>0">
+                    <foreach collection="where_2" item="item">
+                        or ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        ) tmp
+        group by tmp.user_acct
+        <!--        <if test="having_1!=null and having_1.size>0">-->
+        <!--            having-->
+        <!--            <foreach collection="having_1" item="item" separator="and">-->
+        <!--                ${item}-->
+        <!--            </foreach>-->
+        <!--        </if>-->
+    </select>
+
+
+    <select id="parseEventDoAndTemplate" resultType="java.lang.String">
+        select
+        tmp.user_acct
+        from (
+        select
+        tmp.user_acct
+        <if test="select_1!=null and  select_1.size>0">
+            ,
+            <foreach collection="select_1" item="item" separator=",">
+                tmp.${item}
+            </foreach>
+        </if>
+        from (
+        select
+        user_acct
+        <if test="select_2!=null and  select_2.size>0">
+            ,
+            <foreach collection="select_2" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="selectsum_1!=null and selectsum_1.size>0">
+            ,
+            <foreach collection="selectsum_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        <if test="rborcardinality_1!=null and rborcardinality_1.size>0">
+            ,
+            <foreach collection="rborcardinality_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        from ${table_1}
+        <where>
+            <if test="where_1!=null and where_1.size>0 ">
+                <foreach collection="where_1" item="item">
+                    and ${item}
+                </foreach>
+            </if>
+
+            <if test="where_4_relation==null or where_4_relation=='and'">
+                <if test="where_4!=null and  where_4.size>0">
+                    <foreach collection="where_4" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test="where_4_relation!=null and where_4_relation =='or'">
+                <if test="where_4!=null and  where_4.size>0">
+                    and
+                    <foreach collection="where_4" item="item" separator="or" open="(" close=")">
+                         ${item}
+                    </foreach>
+                </if>
+            </if>
+
+        </where>
+        group by user_acct
+        <if test="group_1!=null and group_1.size>0 ">
+            ,
+            <foreach collection="group_1" item="item" separator=",">
+                ${item}
+            </foreach>
+        </if>
+        ) tmp
+
+        <where>
+            <if test="where_2_relation==null or where_2_relation=='and'">
+                <if test="where_2!=null and  where_2.size>0">
+
+                    <foreach collection="where_2" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+            <if test="where_2_relation!=null and where_2_relation =='or'">
+                <if test="where_2!=null and  where_2.size>0">
+                    (
+                    <trim prefixOverrides="or ">
+                        <foreach collection="where_2" item="item" separator=" or ">
+                            ${item}
+                        </foreach>
+                    </trim>
+                    )
+                </if>
+            </if>
+
+            <if test="where_3!=null and top!=''">
+                <if test="where_3!=null and  where_3.size>0">
+                    <foreach collection="where_3" item="item">
+                        and ${item}
+                    </foreach>
+                </if>
+            </if>
+        </where>
+        ) tmp
+        group by tmp.user_acct
+    </select>
+
+
+    <select id="parseAggMaxSceneTemplate" resultType="java.lang.String">
+        select user_acct from (
+        select user_acct
+        <if test="channelLevel==1">
+            ,prmry_busi_mdl_cd
+        </if>
+        <if test="channelLevel==3">
+            ,chnl_str_cd
+        </if>
+        <if test="select_1!=null and  select_1.size>0">
+            <foreach collection="select_1" item="item">
+                ,${item}
+            </foreach>
+        </if>
+        ,row_number() over (partition by user_acct
+        <if test="channelLevel==1">
+            ,prmry_busi_mdl_cd
+        </if>
+        <if test="channelLevel==3">
+            ,chnl_str_cd
+        </if>
+        <if test="select_1!=null and  select_1.size>0">
+            <foreach collection="select_1" item="item">
+                ,${item}
+            </foreach>
+        </if>
+        order by sumSort desc,maxSort desc
+        ) a
+        from (
+        select user_acct
+        <if test="channelLevel==1">
+            ,prmry_busi_mdl_cd
+        </if>
+        <if test="channelLevel==3">
+            ,chnl_str_cd
+        </if>
+        <if test="select_2!=null and  select_1.size>0">
+            <foreach collection="select_2" item="item">
+                ,${item}
+            </foreach>
+        </if>
+        <if test="selectsum_1!=null and  selectsum_1.size>0">
+            <foreach collection="selectsum_1" item="item">
+                ,${item}
+            </foreach>
+        </if>
+
+        <if test="selectmax_1!=null and  selectmax_1.size>0">
+            <foreach collection="selectmax_1" item="item">
+                ,${item}
+            </foreach>
+        </if>
+
+        from ads_user_oneid_action_tag_app_idm
+
+        <where>
+            <if test="where_1!=null and where_1.size>0">
+                <foreach collection="where_1" item="item">
+                    AND ${item}
+                </foreach>
+            </if>
+            <if test="wherenotnull_1!=null and wherenotnull_1.size>0">
+                <foreach collection="wherenotnull_1" item="item">
+                    AND ${item}
+                </foreach>
+            </if>
+        </where>
+        group by user_acct
+        <if test="channelLevel==1">
+            ,prmry_busi_mdl_cd
+        </if>
+        <if test="channelLevel==3">
+            ,chnl_str_cd
+        </if>
+        <if test="group_1!=null and  group_1.size>0">
+            <foreach collection="group_1" item="item" separator=",">
+                ,${item}
+            </foreach>
+        </if>
+        ) A
+        )B
+        <where>
+            a = 1
+            <if test="where_2!=null and  where_2.size>0">
+                <foreach collection="where_2" item="item">
+                    AND ${item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+    <select id="parseMaxSceneTemplate" resultType="java.lang.String">
+        select user_acct
+        from (select user_acct, prmry_busi_mdl_cd, max(fisrt_pay_time) fisrt_pay_time
+              from ads_user_oneid_action_tag_app_idm
+              where prmry_busi_mdl_cd = 'SigoYao'
+                AND fisrt_pay_time is not null
+              group by user_acct, prmry_busi_mdl_cd) A
+        where fisrt_pay_time between '' and '';
+
+    </select>
+
+    <select id="parseMinSceneTemplate" resultType="java.lang.String">
+        select user_acct
+        from (select user_acct, prmry_busi_mdl_cd, min(fisrt_pay_time) fisrt_pay_time
+              from ads_user_oneid_action_tag_app_idm
+              where prmry_busi_mdl_cd = 'SigoYao'
+                AND fisrt_pay_time is not null
+              group by user_acct, prmry_busi_mdl_cd ) A
+        where fisrt_pay_time between '' and '';
+
+    </select>
+
+
+
+
+    <select id="getCrowdChannelLimit">
+        select distinct A.user_acct from (${sql}) A  join (
+        select user_acct from ${table}
+        <where>
+            <if test="channelLimit!=null">
+                <if test="channelLimit.enable!=null  or channelLimit.unEnable!=null ">
+                    <if test="channelLimit.enable!=null ">
+                    and (
+                        <trim  prefixOverrides="or">
+                            <if test="channelLimit.enable.primary!=null and channelLimit.enable.primary.size>0">
+                                or prmry_busi_mdl_cd in
+                                <foreach collection="channelLimit.enable.primary" item="item" separator="," open="(" close=")" index="">
+                                    #{item}
+                                </foreach>
+                            </if>
+                            <if test="channelLimit.enable.department!=null and channelLimit.enable.department.size>0">
+                                or  scnd_busi_mdl_cd in
+                                <foreach collection="channelLimit.enable.department" item="item" separator="," open="(" close=")" index="">
+                                    #{item}
+                                </foreach>
+                            </if>
+                            <if test="channelLimit.enable.store!=null and channelLimit.enable.store.size>0">
+                                or chnl_str_cd in
+                                <foreach collection="channelLimit.enable.store" item="item" separator="," open="(" close=")" index="">
+                                    #{item}
+                                </foreach>
+                            </if>
+                        </trim>
+                     )
+                    </if>
+                    <if test="channelLimit.unEnable!=null ">
+                        and (
+                        <trim  prefixOverrides="and">
+                            <if test="channelLimit.unEnable.primary!=null and channelLimit.unEnable.primary.size>0">
+                                and prmry_busi_mdl_cd not in
+                                <foreach collection="channelLimit.unEnable.primary" item="item" separator="," open="(" close=")" index="">
+                                    #{item}
+                                </foreach>
+                            </if>
+                            <if test="channelLimit.unEnable.department!=null and channelLimit.unEnable.department.size>0">
+                                and ( scnd_busi_mdl_cd is null or scnd_busi_mdl_cd not in
+                                <foreach collection="channelLimit.unEnable.department" item="item" separator=","
+                                         open="(" close=")" index="">
+                                    #{item}
+                                </foreach>)
+                            </if>
+                            <if test="channelLimit.unEnable.store!=null and channelLimit.unEnable.store.size>0">
+                                and ( chnl_str_cd is null or chnl_str_cd not in
+                                <foreach collection="channelLimit.unEnable.store" item="item" separator="," open="("
+                                         close=")" index="">
+                                    #{item}
+                                </foreach>)
+                            </if>
+                        </trim>
+                        )
+                    </if>
+            </if>
+            <if test="channelLimit.enable ==null  and channelLimit.unEnable ==null ">
+                <if test="prCode!=null and prCode!=''">
+                    and   prmry_busi_mdl_cd   = #{prCode}
+                </if>
+                <if test="storeCode!=null and storeCode!=''">
+                    and   chnl_str_cd   = #{storeCode}
+                </if>
+            </if>
+        </if>
+        <if test="channelLimit ==null">
+            <if test="prCode!=null and prCode!=''">
+                and   prmry_busi_mdl_cd   = #{prCode}
+            </if>
+            <if test="storeCode!=null and storeCode!=''">
+                and   chnl_str_cd   = #{storeCode}
+            </if>
+        </if>
+        </where>
+                )B on A.user_acct = B.user_acct
+    </select>
+</mapper>
