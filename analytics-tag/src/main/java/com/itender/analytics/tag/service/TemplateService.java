@@ -1,6 +1,16 @@
 package com.itender.analytics.tag.service;
 
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.text.CharSequenceUtil;
+import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.itender.analytics.tag.domain.TagGroupExpressionRequest;
+import com.itender.analytics.tag.domain.TagGroupSelect;
+import com.itender.analytics.tag.domain.dto.TemplateTableMapping;
+import com.itender.analytics.tag.exception.BizException;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -10,7 +20,7 @@ import java.util.stream.Collectors;
 public abstract class TemplateService {
 
     @Resource
-    private TagGroupCustomMapper tagGroupCustomMapper;
+    // private TagGroupCustomMapper tagGroupCustomMapper;
 
     /**
      * 解析模板
@@ -29,9 +39,10 @@ public abstract class TemplateService {
     public Map<String, String> matchTable(List<String> tables, String templateCode) {
         //解析表
         List<String> tb = tables.stream().filter(StrUtil::isNotBlank).distinct().collect(Collectors.toList());
-        List<TemplateTableMapping> templateTableMapping = tagGroupCustomMapper.getTemplateTableMapping(templateCode);
-        if (CollectionUtil.isEmpty(templateTableMapping)) {
-            throw new Http400Exception("", "无法匹配查询表");
+        // List<TemplateTableMapping> templateTableMapping = tagGroupCustomMapper.getTemplateTableMapping(templateCode);
+        List<TemplateTableMapping> templateTableMapping = new ArrayList<>();
+        if (CollUtil.isEmpty(templateTableMapping)) {
+            throw new BizException(500, "无法匹配查询表");
         }
         //根据模板位置分组
         Map<String, List<TemplateTableMapping>> tableLocationMap = templateTableMapping.stream().collect(Collectors.groupingBy(TemplateTableMapping::getTableLocation));
@@ -55,7 +66,7 @@ public abstract class TemplateService {
 
         //获取此模板有几处表替换处
         if (CollectionUtil.isEmpty(tableMap) && tableLocationMap.size() != tableMap.size()) {
-            throw new Http400Exception("", "匹配查询表出错");
+            throw new BizException(500, "匹配查询表出错");
         }
         return tableMap;
     }
@@ -68,7 +79,7 @@ public abstract class TemplateService {
         String gpColumnName = select.getGpColumnName();
         String[] unitPriceCol = gpColumnName.split("/");
         //查询
-        if (ObjectUtil.isNotNull(unitPriceCol) && unitPriceCol.length > 0) {
+        if (ArrayUtil.isNotEmpty(unitPriceCol)) {
             for (String key : map.keySet()) {
                 if ("selectsum_1".equals(key)) {
                     Object o = map.get(key);
@@ -96,43 +107,44 @@ public abstract class TemplateService {
         }
     }
 
-    /**
-     * 处理topN
-     *
-     * @param selects
-     * @param stringObjectMap
-     */
-    public void doTop(List<TagGroupSelect> selects, Map<String, Object> stringObjectMap) {
-        for (TagGroupSelect select : selects) {
-            if (select.getValue() != null && select.getValue() instanceof String && select.getValue().toString().contains("top")) {
-                Object group = stringObjectMap.get("group_1");
-                if (ObjectUtil.isNull(group)) {
-                    stringObjectMap.put("group_1", new ArrayList<>(Arrays.asList(select.getGpColumnName())));
-                } else {
-                    List<String> list = (List) group;
-                    list.add(select.getGpColumnName());
-                }
-            }
-        }
-    }
+    // /**
+    //  * 处理topN
+    //  *
+    //  * @param selects
+    //  * @param stringObjectMap
+    //  */
+    // public void doTop(List<TagGroupSelect> selects, Map<String, Object> stringObjectMap) {
+    //     for (TagGroupSelect select : selects) {
+    //         if (select.getValue() != null && select.getValue() instanceof String && select.getValue().toString().contains("top")) {
+    //             Object group = stringObjectMap.get("group_1");
+    //             if (Objects.isNull(group)) {
+    //                 stringObjectMap.put("group_1", new ArrayList<>(Arrays.asList(select.getGpColumnName())));
+    //             } else {
+    //                 List<String> list = (List) group;
+    //                 list.add(select.getGpColumnName());
+    //             }
+    //         }
+    //     }
+    // }
 
 
     public void dealRelation(List<TagGroupSelect> selects, Map<String, Object> stringObjectMap) {
         List<TagGroupSelect> relations = selects.stream().filter(s -> StrUtil.isNotBlank(s.getRelation())).collect(Collectors.toList());
-        if (CollectionUtil.isNotEmpty(relations)) {
-            for (TagGroupSelect relation : relations) {
-                String relationField = relation.getRelation();
-                String sqlLocation = relation.getSqlLocation();
-                if (StrUtil.isNotBlank(sqlLocation)) {
-                    List<String> locations = Arrays.asList(sqlLocation.split("\\|"));
-                    locations.forEach(l -> {
-                        if (l.contains("where")) {
-                            stringObjectMap.put(l + "_relation", relationField);
-                        }
-                    });
-                }
+        if (CollUtil.isEmpty(relations)) {
+            return;
+        }
+        for (TagGroupSelect relation : relations) {
+            String relationField = relation.getRelation();
+            String sqlLocation = relation.getSqlLocation();
+            if (CharSequenceUtil.isBlank(sqlLocation)) {
+                continue;
             }
+            List<String> locations = Arrays.asList(sqlLocation.split("\\|"));
+            locations.forEach(l -> {
+                if (l.contains("where")) {
+                    stringObjectMap.put(l + "_relation", relationField);
+                }
+            });
         }
     }
-
 }
