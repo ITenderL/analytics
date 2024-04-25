@@ -210,5 +210,5 @@ public interface SqlTemplateMapper {
      * @param table 表（如果是一级渠道，需要有粉丝数据）
      * @param sql 圈人sql
      */
-    void getCrowdChannelLimit(ChannelLimit channelLimit, String prCode, String storeCode, String table, String sql);
+    // void getCrowdChannelLimit(ChannelLimit channelLimit, String prCode, String storeCode, String table, String sql);
 }
