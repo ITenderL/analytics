@@ -16,3 +16,6 @@
 ### `analytics-dashboard` 看板模块（待建）
 各种报表，看板，数据图形可视化平台
 
+### `analytics-common` 公共服务
+公共服务模块
+
