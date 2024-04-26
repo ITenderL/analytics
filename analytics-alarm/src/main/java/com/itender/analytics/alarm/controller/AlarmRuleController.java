@@ -33,7 +33,7 @@ public class AlarmRuleController {
      */
     @PostMapping
     public void add(@RequestBody AlarmRuleVO alarmVO) {
-
+        alarmRuleService.add(alarmVO);
     }
 
     /**

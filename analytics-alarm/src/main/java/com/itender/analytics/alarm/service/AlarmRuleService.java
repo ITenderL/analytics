@@ -19,4 +19,11 @@ public interface AlarmRuleService {
      * @return
      */
     List<AlarmResultVO> preview(AlarmRuleVO alarmVO);
+
+    /**
+     * 新增告警规则
+     *
+     * @param alarmVO
+     */
+    void add(AlarmRuleVO alarmVO);
 }

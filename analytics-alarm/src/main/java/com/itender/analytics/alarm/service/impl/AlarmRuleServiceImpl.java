@@ -20,4 +20,9 @@ public class AlarmRuleServiceImpl implements AlarmRuleService {
     public List<AlarmResultVO> preview(AlarmRuleVO alarmVO) {
         return null;
     }
+
+    @Override
+    public void add(AlarmRuleVO alarmVO) {
+
+    }
 }
