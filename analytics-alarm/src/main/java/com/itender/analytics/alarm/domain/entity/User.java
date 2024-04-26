@@ -1,4 +1,4 @@
-package com.itender.analytics.alarm.entity;
+package com.itender.analytics.alarm.domain.entity;
 
 import lombok.*;
 

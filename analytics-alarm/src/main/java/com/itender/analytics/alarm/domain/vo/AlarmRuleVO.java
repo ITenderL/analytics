@@ -1,4 +1,4 @@
-package com.itender.analytics.alarm.vo;
+package com.itender.analytics.alarm.domain.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

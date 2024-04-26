@@ -28,7 +28,7 @@ public class TagGroupController {
         this.tagGroupService = tagGroupService;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/page")
     public PageInfo<TagGroupVO> getTagGroups(@RequestParam(value = "page", defaultValue = "0") int page,
                                              @RequestParam(value = "size", defaultValue = "10") int size) {
         return tagGroupService.queryByPage(page, size);
@@ -50,7 +50,7 @@ public class TagGroupController {
     }
 
     @GetMapping("/{id}")
-    public TagGroup getById(@PathVariable Integer id) {
+    public TagGroup detail(@PathVariable Integer id) {
         return tagGroupService.getById(id);
     }
 

@@ -15,6 +15,7 @@ public enum AlarmFilterTypeEnum {
     THEATER("theater", "战区"),
     BRAND("brand", "品牌"),
     KEYWORDS("keywords", "关键词"),
+    FEEDBACK_ATTRIBUTES("feedbackAttributes", "反馈属性"),
     SCENARIO_KEYWORDS("scenarioKeywords", "场景关键词"),
     EMOTION("emotion", "情感"),
     ;

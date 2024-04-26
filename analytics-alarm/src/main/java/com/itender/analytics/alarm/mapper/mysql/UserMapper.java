@@ -1,6 +1,6 @@
 package com.itender.analytics.alarm.mapper.mysql;
 
-import com.itender.analytics.alarm.entity.User;
+import com.itender.analytics.alarm.domain.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

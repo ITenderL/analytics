@@ -1,9 +1,12 @@
-package com.itender.analytics.alarm.vo;
+package com.itender.analytics.alarm.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * @author yuanhewei
@@ -14,12 +17,28 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlarmFilterVO {
+@TableName("t_alarm_filter")
+public class AlarmFilterEntity {
+
+    /**
+     * 主键id
+     */
+    private Integer id;
+
+    /**
+     * 规则id
+     */
+    private Integer ruleId;
 
     /**
      * 过滤条件编码
      */
     private String type;
+
+    /**
+     * 过滤条件id集合
+     */
+    private List<Integer> filterIds;
 
     /**
      * 是否分别监控
