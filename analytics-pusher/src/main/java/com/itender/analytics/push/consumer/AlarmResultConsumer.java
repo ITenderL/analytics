@@ -37,5 +37,4 @@ public class AlarmResultConsumer {
     public void onMessage2(ConsumerRecord<?, ?> record) {
         System.out.println("topic:" + record.topic() + "partition:" + record.partition() + "offset:" + record.offset() + "value:" + record.value());
     }
-
 }

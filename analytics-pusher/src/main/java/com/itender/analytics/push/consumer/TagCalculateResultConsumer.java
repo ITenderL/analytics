@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TagCalculateResultConsumer {
+
     /**
      * 消费监听
      *
@@ -36,5 +37,4 @@ public class TagCalculateResultConsumer {
     public void onMessage2(ConsumerRecord<?, ?> record) {
         System.out.println("topic:" + record.topic() + "partition:" + record.partition() + "offset:" + record.offset() + "value:" + record.value());
     }
-
 }
