@@ -24,7 +24,7 @@ public class AlarmRuleServiceImpl implements AlarmRuleService {
         if (CollUtil.isEmpty(alarmVO.getFilters()) || CollUtil.isEmpty(alarmVO.getTriggers())) {
             throw new BizException(5000, "");
         }
-        // 2.判断是否动态全选
+        // 2.判断告警过滤条件是否动态全选
         // 3.循环遍历告警触发条件，获取告警结果
         // 4.封装告警结果
         return null;
