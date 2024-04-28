@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@MapperScan(basePackages = "cn.sigo.idata.platform.tag.mapper.mysql", sqlSessionFactoryRef = "mysqlSessionFactory")
+@MapperScan(basePackages = "com.itender.analytics.tag.mapper.mysql", sqlSessionFactoryRef = "mysqlSessionFactory")
 public class MysqlDataSourceConfig {
 
 

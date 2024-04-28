@@ -1,4 +1,4 @@
-package com.itender.analytics.alarm.config;
+package com.itender.analytics.push.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -22,7 +22,7 @@ import java.util.Objects;
  * @description mysql数据源配置
  */
 @Configuration
-@MapperScan(basePackages = "com.itender.analytics.alarm.mapper.mysql")
+@MapperScan(basePackages = "com.itender.analytics.push.mapper.mysql")
 public class MysqlDataSourceConfig {
 
     @Primary

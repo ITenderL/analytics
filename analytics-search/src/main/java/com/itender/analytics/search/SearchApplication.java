@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
+@MapperScan(basePackages = "com.itender.analytics.push.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class SearchApplication {

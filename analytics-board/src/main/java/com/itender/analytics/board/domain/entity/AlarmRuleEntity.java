@@ -1,7 +1,7 @@
-package com.itender.analytics.alarm.domain.entity;
+package com.itender.analytics.board.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.itender.analytics.alarm.domain.vo.AlarmFilterVO;
+import com.itender.analytics.board.domain.vo.AlarmFilterVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

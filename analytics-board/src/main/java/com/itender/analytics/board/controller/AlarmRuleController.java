@@ -1,8 +1,8 @@
-package com.itender.analytics.alarm.controller;
+package com.itender.analytics.board.controller;
 
-import com.itender.analytics.alarm.domain.vo.AlarmResultVO;
-import com.itender.analytics.alarm.domain.vo.AlarmRuleVO;
-import com.itender.analytics.alarm.service.AlarmRuleService;
+import com.itender.analytics.board.domain.vo.AlarmResultVO;
+import com.itender.analytics.board.domain.vo.AlarmRuleVO;
+import com.itender.analytics.board.service.AlarmRuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

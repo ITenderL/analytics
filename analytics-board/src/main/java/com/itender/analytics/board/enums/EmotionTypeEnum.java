@@ -1,4 +1,4 @@
-package com.itender.analytics.alarm.enums;
+package com.itender.analytics.board.enums;
 
 import lombok.Getter;
 

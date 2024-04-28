@@ -1,4 +1,4 @@
-package com.itender.analytics.alarm.domain.entity;
+package com.itender.analytics.push.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
-package com.itender.analytics.alarm.service.impl;
+package com.itender.analytics.push.service.impl;
 
-import com.itender.analytics.alarm.domain.vo.AlarmResultVO;
-import com.itender.analytics.alarm.domain.vo.AlarmRuleVO;
-import com.itender.analytics.alarm.service.AlarmRuleService;
+import com.itender.analytics.push.domain.vo.AlarmResultVO;
+import com.itender.analytics.push.domain.vo.AlarmRuleVO;
+import com.itender.analytics.push.service.AlarmRuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
