@@ -2,6 +2,7 @@ package com.itender.analytics.alarm.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.itender.analytics.alarm.domain.vo.AlarmFilterVO;
+import com.itender.analytics.alarm.domain.vo.AlarmTriggerVO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +42,11 @@ public class AlarmRuleEntity {
      * 过滤条件
      */
     private List<AlarmFilterVO> filters;
+
+    /**
+     * 告警ch触发条件
+     */
+    private List<AlarmTriggerVO> triggers;
 
     /**
      * 告警级别
