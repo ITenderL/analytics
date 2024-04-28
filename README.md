@@ -13,6 +13,9 @@
 ### `analytics-search` 搜索系统
 数据详情的检索
 
+### `analytics-pusher` 消息推送系统
+告警消息，标签消息推送
+
 ### `analytics-dashboard` 看板模块（待建）
 各种报表，看板，数据图形可视化平台
 
