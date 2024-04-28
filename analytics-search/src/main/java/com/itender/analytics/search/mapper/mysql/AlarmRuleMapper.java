@@ -1,7 +1,7 @@
-package com.itender.analytics.alarm.mapper.mysql;
+package com.itender.analytics.search.mapper.mysql;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.itender.analytics.alarm.domain.entity.AlarmRuleEntity;
+import com.itender.analytics.search.domain.entity.AlarmRuleEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

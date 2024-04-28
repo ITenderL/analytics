@@ -1,7 +1,7 @@
-package com.itender.analytics.alarm.service;
+package com.itender.analytics.search.service;
 
-import com.itender.analytics.alarm.domain.vo.AlarmResultVO;
-import com.itender.analytics.alarm.domain.vo.AlarmRuleVO;
+import com.itender.analytics.search.domain.vo.AlarmResultVO;
+import com.itender.analytics.search.domain.vo.AlarmRuleVO;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.itender.analytics.search.controller;
 
 import com.itender.analytics.search.domain.vo.AlarmResultVO;
 import com.itender.analytics.search.domain.vo.AlarmRuleVO;
-import com.itender.analytics.alarm.service.AlarmRuleService;
+import com.itender.analytics.search.service.AlarmRuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
