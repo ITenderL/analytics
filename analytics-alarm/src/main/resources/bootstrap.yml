@@ -1,6 +1,6 @@
 spring:
   application:
-    name: analytics-common
+    name: analytics-alarm
   profiles:
     active: dev
   datasource:
