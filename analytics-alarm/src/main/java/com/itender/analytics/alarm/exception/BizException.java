@@ -1,7 +1,7 @@
 package com.itender.analytics.alarm.exception;
 
 
-import com.itender.analytics.tag.enums.BizExceptionEnum;
+import com.itender.analytics.alarm.enums.BizExceptionEnum;
 
 import java.text.MessageFormat;
 
