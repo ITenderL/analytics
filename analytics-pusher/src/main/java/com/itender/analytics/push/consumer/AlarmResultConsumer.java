@@ -26,7 +26,7 @@ public class AlarmResultConsumer {
     /**
      * @param record
      * @Title 指定topic、partition、offset消费
-     * @Description 同时监听topic1和topic2，监听topic1的0号分区、
+     * @description  同时监听topic1和topic2，监听topic1的0号分区、
      * topic2的 "0号和1号" 分区，指向1号分区的offset初始值为8
      */
     // @KafkaListener(id = "consumer1", groupId = "felix-group", topicPartitions = {
