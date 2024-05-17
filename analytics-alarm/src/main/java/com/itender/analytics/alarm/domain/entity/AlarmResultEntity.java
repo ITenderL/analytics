@@ -42,14 +42,22 @@ public class AlarmResultEntity {
     private String dimension;
 
     /**
-     * 触发条件
+     * 告警条件
      */
     private String condition;
+
+    /**
+     * 触发条件
+     */
+    private String triggerCondition;
 
     /**
      * 过滤条件
      */
     private Map<String, List<String>> filterMap;
 
-
+    /**
+     * 触发时间
+     */
+    private String triggerTime;
 }

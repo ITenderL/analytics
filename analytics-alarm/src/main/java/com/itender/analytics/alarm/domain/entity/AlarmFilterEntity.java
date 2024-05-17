@@ -36,19 +36,24 @@ public class AlarmFilterEntity {
     private String type;
 
     /**
-     * 过滤条件id集合
+     * 过滤条件id
      */
-    private List<Integer> filterIds;
+    private Integer filterId;
+
+    /**
+     * 过滤条件值
+     */
+    private String name;
+
+    /**
+     * 过滤条件层级
+     */
+    private Integer level;
 
     /**
      * 是否分别监控
      */
     private Boolean isMonitor;
-
-    /**
-     * 过滤条件值
-     */
-    private String value;
 
     /**
      * 是否全选

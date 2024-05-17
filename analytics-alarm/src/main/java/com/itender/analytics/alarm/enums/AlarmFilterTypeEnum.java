@@ -13,6 +13,7 @@ public enum AlarmFilterTypeEnum {
     TAG("tag", "标签"),
     TAG_TREE("tagTree", "标签树"),
     THEATER("theater", "战区"),
+    CHANNEL("channel", "渠道"),
     BRAND("brand", "品牌"),
     KEYWORDS("keywords", "关键词"),
     FEEDBACK_ATTRIBUTES("feedbackAttributes", "反馈属性"),

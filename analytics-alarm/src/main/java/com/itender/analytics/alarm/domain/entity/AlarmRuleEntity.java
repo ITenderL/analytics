@@ -44,7 +44,7 @@ public class AlarmRuleEntity {
     private List<AlarmFilterVO> filters;
 
     /**
-     * 告警ch触发条件
+     * 告警触发条件
      */
     private List<AlarmTriggerVO> triggers;
 
@@ -64,9 +64,14 @@ public class AlarmRuleEntity {
     private Integer responsible;
 
     /**
-     * 推送人
+     * 告警接收人
      */
-    private List<Integer> pusher;
+    private List<Integer> receivers;
+
+    /**
+     * 告警周期：cron表达式
+     */
+    private String cron;
 
     /**
      * 创建人
@@ -87,4 +92,9 @@ public class AlarmRuleEntity {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 是否删除1：已删除 0：未删除
+     */
+    private Boolean deleted;
 }

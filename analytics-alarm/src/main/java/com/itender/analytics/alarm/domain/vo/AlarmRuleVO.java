@@ -20,14 +20,19 @@ import java.util.List;
 public class AlarmRuleVO {
 
     /**
-     * id of the alarm
+     * id
      */
     private Long id;
 
     /**
-     * name of the alarm
+     * 告警规则名称
      */
     private String name;
+
+    /**
+     * 监控维度
+     */
+    private Integer dimension;
 
     /**
      * 过滤条件
@@ -55,14 +60,14 @@ public class AlarmRuleVO {
     private Integer responsible;
 
     /**
-     * 推送人
+     * 告警接收人
      */
-    private List<Integer> pusher;
+    private List<Integer> receivers;
 
     /**
-     * 用户id
+     * 告警周期：cron表达式
      */
-    private Long userId;
+    private String cron;
 
     /**
      * 创建人
@@ -83,4 +88,9 @@ public class AlarmRuleVO {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 是否删除1：已删除 0：未删除
+     */
+    private Boolean deleted;
 }
