@@ -51,6 +51,11 @@ public class AlarmFilterEntity {
     private Integer level;
 
     /**
+     * 使用场景，适用于关键词，1：must或者0：must not
+     */
+    private Integer scenarios;
+
+    /**
      * 是否分别监控
      */
     private Boolean isMonitor;
