@@ -1,5 +1,6 @@
 package com.itender.analytics.alarm.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.itender.analytics.alarm.domain.vo.AlarmFilterVO;
 import com.itender.analytics.alarm.domain.vo.AlarmTriggerVO;
@@ -56,6 +57,7 @@ public class AlarmRuleEntity {
     /**
      * 推送方式
      */
+    @TableField("push_type")
     private Integer pushType;
 
     /**
@@ -81,6 +83,7 @@ public class AlarmRuleEntity {
     /**
      * 创建时间
      */
+    @TableField("create_time")
     private Date createTime;
 
     /**
@@ -91,6 +94,7 @@ public class AlarmRuleEntity {
     /**
      * 更新时间
      */
+    @TableField("update_time")
     private Date updateTime;
 
     /**

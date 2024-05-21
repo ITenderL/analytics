@@ -1,14 +1,19 @@
 package com.itender.analytics.alarm.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import com.itender.analytics.alarm.domain.vo.AlarmResultVO;
+import com.itender.analytics.alarm.convert.AlarmConvertMapper;
+import com.itender.analytics.alarm.domain.entity.AlarmRuleEntity;
 import com.itender.analytics.alarm.domain.vo.AlarmRuleVO;
 import com.itender.analytics.alarm.exception.BizException;
+import com.itender.analytics.alarm.mapper.mysql.AlarmRuleMapper;
 import com.itender.analytics.alarm.service.AlarmRuleService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.annotation.Resource;
+import java.util.Objects;
+
+import static com.itender.analytics.alarm.enums.BizExceptionEnum.REQUEST_PARAMETERS_IS_NULL;
 
 /**
  * @author yuanhewei
@@ -18,20 +23,19 @@ import java.util.List;
 @Slf4j
 @Service
 public class AlarmRuleServiceImpl implements AlarmRuleService {
-    @Override
-    public List<AlarmResultVO> preview(AlarmRuleVO alarmVO) {
-        // 1.参数校验
-        if (CollUtil.isEmpty(alarmVO.getFilters()) || CollUtil.isEmpty(alarmVO.getTriggers())) {
-            throw new BizException(5000, "");
-        }
-        // 2.判断告警过滤条件是否动态全选
-        // 3.循环遍历告警触发条件，获取告警结果
-        // 4.封装告警结果
-        return null;
-    }
+
+    @Resource
+    private AlarmRuleMapper alarmRuleMapper;
+
+    @Resource
+    private AlarmConvertMapper alarmConvertMapper;
 
     @Override
     public void add(AlarmRuleVO alarmVO) {
-
+        if (Objects.isNull(alarmVO)) {
+            throw new BizException(REQUEST_PARAMETERS_IS_NULL);
+        }
+        AlarmRuleEntity alarmRuleEntity = alarmConvertMapper.alarmRuleVoToAlarmRuleEntity(alarmVO);
+        alarmRuleMapper.insert(alarmRuleEntity);
     }
 }

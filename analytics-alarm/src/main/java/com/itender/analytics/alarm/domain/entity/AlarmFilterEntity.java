@@ -1,5 +1,6 @@
 package com.itender.analytics.alarm.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,7 @@ public class AlarmFilterEntity {
     /**
      * 规则id
      */
+    @TableField("rule_id")
     private Integer ruleId;
 
     /**
@@ -58,10 +60,12 @@ public class AlarmFilterEntity {
     /**
      * 是否分别监控
      */
+    @TableField("is_monitor")
     private Boolean isMonitor;
 
     /**
      * 是否全选
      */
+    @TableField("is_selected_all")
     private Boolean isSelectedAll;
 }

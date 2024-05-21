@@ -9,7 +9,8 @@ import lombok.Getter;
  */
 @Getter
 public enum BizExceptionEnum {
-
+    REQUEST_PARAMETERS_IS_NULL(5001, "请求参数为空！"),
+    MAPSTRUCT_CONVERT_ERROR(5002, "mapstruct转换对象出错！"),
     ;
 
     private final Integer code;

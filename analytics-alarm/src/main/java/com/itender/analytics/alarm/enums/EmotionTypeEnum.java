@@ -18,6 +18,15 @@ public enum EmotionTypeEnum {
 
     private final String value;
 
+    public static String getValueByCode(Integer code) {
+        for (EmotionTypeEnum emotionTypeEnum : EmotionTypeEnum.values()) {
+            if (emotionTypeEnum.getCode().equals(code)) {
+                return emotionTypeEnum.getValue();
+            }
+        }
+        return null;
+    }
+
     EmotionTypeEnum(Integer code, String value) {
         this.code = code;
         this.value = value;

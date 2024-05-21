@@ -7,15 +7,16 @@ import java.util.List;
 
 /**
  * @author yuanhewei
- * @date 2024/4/26 10:56
- * @description
+ * @date 2024/5/20 15:29
+ * @description 声量，标签反馈量占比策略类
  */
-public interface AlarmRuleService {
+public interface AlarmPreviewStrategy {
 
     /**
-     * 新增告警规则
+     * 预览告警结果
      *
      * @param alarmVO
+     * @return
      */
-    void add(AlarmRuleVO alarmVO);
+    List<AlarmResultVO> preview(AlarmRuleVO alarmVO);
 }
