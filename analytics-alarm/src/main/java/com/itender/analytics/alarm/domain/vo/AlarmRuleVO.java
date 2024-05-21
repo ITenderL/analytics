@@ -35,6 +35,11 @@ public class AlarmRuleVO {
     private Integer dimension;
 
     /**
+     * 告警类型 volume: 声量  tagFeedbackVolume
+     */
+    private String type;
+
+    /**
      * 过滤条件
      */
     private List<AlarmFilterVO> filters;

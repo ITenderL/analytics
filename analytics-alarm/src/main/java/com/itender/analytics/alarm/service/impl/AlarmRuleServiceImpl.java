@@ -7,13 +7,12 @@ import com.itender.analytics.alarm.exception.BizException;
 import com.itender.analytics.alarm.mapper.mysql.AlarmRuleMapper;
 import com.itender.analytics.alarm.service.AlarmRuleService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Objects;
 
-import static com.itender.analytics.alarm.enums.BizExceptionEnum.REQUEST_PARAMETERS_IS_NULL;
+import static com.itender.analytics.alarm.enums.StatusEnum.REQUEST_PARAMETERS_IS_NULL;
 
 /**
  * @author yuanhewei

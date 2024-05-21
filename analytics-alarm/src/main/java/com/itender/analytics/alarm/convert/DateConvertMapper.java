@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.itender.analytics.alarm.enums.BizExceptionEnum.MAPSTRUCT_CONVERT_ERROR;
+import static com.itender.analytics.alarm.enums.StatusEnum.MAPSTRUCT_CONVERT_ERROR;
 
 /**
  * @author itender
@@ -15,7 +15,7 @@ import static com.itender.analytics.alarm.enums.BizExceptionEnum.MAPSTRUCT_CONVE
  * @desc
  */
 @Component
-public class DateMapper {
+public class DateConvertMapper {
 
     public String asString(Date date) {
         return date != null ? new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")

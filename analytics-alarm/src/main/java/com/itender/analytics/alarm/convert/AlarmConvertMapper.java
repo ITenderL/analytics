@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
  * @date 2022/9/22 17:33
  * @desc
  */
-@Mapper(componentModel = "spring", uses = DateMapper.class)
+@Mapper(componentModel = "spring", uses = DateConvertMapper.class)
 public interface AlarmConvertMapper {
 
     /**
@@ -20,7 +20,6 @@ public interface AlarmConvertMapper {
      * @return
      */
     AlarmRuleVO alarmRuleEntityToAlarmRuleVO(AlarmRuleEntity alarmRuleEntity);
-
 
     /**
      * entity -> vo

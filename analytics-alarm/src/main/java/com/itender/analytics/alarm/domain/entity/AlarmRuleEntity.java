@@ -35,6 +35,11 @@ public class AlarmRuleEntity {
     private String name;
 
     /**
+     * 告警类型 volume: 声量  tagFeedbackVolume
+     */
+    private String type;
+
+    /**
      * 监控维度
      */
     private Integer dimension;

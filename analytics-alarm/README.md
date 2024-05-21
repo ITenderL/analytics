@@ -1,4 +1,4 @@
-# 监控告警平台设计文档
+# 监控告警平台设计方案
 
 ## 1. 背景
 
@@ -99,7 +99,7 @@ CREATE TABLE `t_analytics_alarm_result` (
 `deleted` TINYINT ( 1 ) NOT NULL DEFAULT '0' COMMENT '是否删除（0：未删除，1：已删除）',
 PRIMARY KEY ( `id` ) USING BTREE,
 KEY `idx_rule_id` ( `rule_id` ) USING BTREE 
-) ENGINE = INNODB ROW_FORMAT = DYNAMIC COMMENT = '告警过滤条件表';
+) ENGINE = INNODB ROW_FORMAT = DYNAMIC COMMENT = '告警结果表';
 ```
 
 
@@ -113,6 +113,64 @@ KEY `idx_rule_id` ( `rule_id` ) USING BTREE
 ### 4.2 `Elasticsearch`
 
 #### 4.2.1 数据详情索引
+
+``` sql
+PUT _index_template/idata_oneid_detail_template
+{
+  "index_patterns": "idata_oneid_detail*",
+  "priority": "1",
+  "template": {
+    "settings": {
+      "number_of_shards": "3",
+      "number_of_replicas": "2"
+    },
+    "mappings": {
+      "properties": {
+        "oneid": {
+          "type": "keyword"
+        },
+        "pay_time": {
+          "type": "date",
+          "format": "yyyy-MM-dd"
+        },
+        "channel_order_code": {
+          "type": "keyword"
+        },
+        "erp_order_code": {
+          "type": "keyword"
+        },
+        "channel_store_code": {
+          "type": "keyword"
+        },
+        "user_acc": {
+          "type": "keyword"
+        },
+        "consignee_name": {
+          "type": "keyword"
+        },
+        "consignee_phone": {
+          "type": "keyword"
+        },
+        "consignee_detail": {
+          "type": "text"
+        },
+        "actual_pay_money": {
+          "type": "double"
+        },
+        "rfd_money": {
+          "type": "double"
+        },
+        "sale_store_name": {
+          "type": "keyword"
+        }
+      }
+    },
+    "aliases": {
+      "idata_oneid_detail": {}
+    }
+  }
+}
+```
 
 
 

@@ -2,12 +2,14 @@ package com.itender.analytics.alarm.controller;
 
 import com.itender.analytics.alarm.domain.vo.AlarmResultVO;
 import com.itender.analytics.alarm.domain.vo.AlarmRuleVO;
+import com.itender.analytics.alarm.service.AlarmPreviewStrategy;
 import com.itender.analytics.alarm.service.AlarmRuleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yuanhewei
@@ -21,9 +23,12 @@ public class AlarmRuleController {
 
     private final AlarmRuleService alarmRuleService;
 
+    private final Map<String, AlarmPreviewStrategy> alarmPreviewStrategyMap;
+
     @Autowired
-    public AlarmRuleController(AlarmRuleService alarmRuleService) {
+    public AlarmRuleController(AlarmRuleService alarmRuleService, Map<String, AlarmPreviewStrategy> alarmPreviewStrategyMap) {
         this.alarmRuleService = alarmRuleService;
+        this.alarmPreviewStrategyMap = alarmPreviewStrategyMap;
     }
 
     /**
@@ -54,6 +59,6 @@ public class AlarmRuleController {
      */
     @PostMapping("/preview")
     public List<AlarmResultVO> preview(@RequestBody AlarmRuleVO alarmVO) {
-        return alarmRuleService.preview(alarmVO);
+        return alarmPreviewStrategyMap.get(alarmVO.getType()).preview(alarmVO);
     }
 }
