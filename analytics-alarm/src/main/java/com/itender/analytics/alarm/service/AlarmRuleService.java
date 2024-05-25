@@ -13,6 +13,14 @@ import java.util.List;
 public interface AlarmRuleService {
 
     /**
+     * 预览告警结果
+     *
+     * @param alarmVO
+     * @return
+     */
+    List<AlarmResultVO> previewAlarmResult(AlarmRuleVO alarmVO);
+
+    /**
      * 新增告警规则
      *
      * @param alarmVO

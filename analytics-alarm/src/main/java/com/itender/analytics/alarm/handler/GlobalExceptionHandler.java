@@ -28,8 +28,8 @@ public class GlobalExceptionHandler {
      * @param request 请求参数
      * @return 接口响应
      */
-    @ExceptionHandler(Exception.class)
     @ResponseBody
+    @ExceptionHandler(Exception.class)
     public Result<Void> handleException(HttpServletRequest request, Exception e) {
         log.error("request {} throw unExpectException \n", request, e);
         return Result.error(StatusEnum.SERVICE_ERROR);
