@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.itender.analytics.alarm.enums.StatusEnum.MAPSTRUCT_CONVERT_ERROR;
+import static com.itender.analytics.alarm.enums.BizExceptionEnum.MAPSTRUCT_CONVERT_ERROR;
 
 /**
  * @author itender

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Objects;
 
-import static com.itender.analytics.alarm.enums.StatusEnum.REQUEST_PARAMETERS_IS_NULL;
+import static com.itender.analytics.alarm.enums.BizExceptionEnum.REQUEST_PARAMETERS_IS_NULL;
 
 /**
  * @author yuanhewei

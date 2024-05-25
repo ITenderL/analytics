@@ -39,7 +39,8 @@ public class Result<T> {
     public static <T> Result<T> success(T data) {
         return Result.<T>builder()
                 .code(SUCCESS.getCode())
-                .data(data).build();
+                .data(data)
+                .build();
     }
 
     /**

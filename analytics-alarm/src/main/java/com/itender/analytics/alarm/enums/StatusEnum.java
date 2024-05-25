@@ -9,14 +9,10 @@ import lombok.Getter;
  */
 @Getter
 public enum StatusEnum {
-    SUCCESS(200, "请求处理成功"),
-    UNAUTHORIZED(401, "用户认证失败"),
-    FORBIDDEN(403, "权限不足"),
-    SERVICE_ERROR(500, "服务器去旅行了，请稍后重试"),
-    PARAM_INVALID(1000, "无效的参数"),
-    REQUEST_PARAMETERS_IS_NULL(1001, "请求参数为空！"),
-    MAPSTRUCT_CONVERT_ERROR(1002, "mapstruct转换对象出错！"),
-    ELASTICSEARCH_QUERY_ERROR(1003, "Elasticsearch执行查询出错！"),
+    SUCCESS(2000, "请求成功"),
+    UNAUTHORIZED(4001, "用户认证失败"),
+    FORBIDDEN(4003, "权限不足"),
+    SERVICE_ERROR(5000, "服务器去旅行了，请稍后重试"),
     ;
 
     private final Integer code;

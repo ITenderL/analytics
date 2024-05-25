@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.itender.analytics.alarm.enums.StatusEnum.REQUEST_PARAMETERS_IS_NULL;
+import static com.itender.analytics.alarm.enums.BizExceptionEnum.REQUEST_PARAMETERS_IS_NULL;
 
 /**
  * @author yuanhewei

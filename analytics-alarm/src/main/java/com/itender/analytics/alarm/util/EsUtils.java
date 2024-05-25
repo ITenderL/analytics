@@ -17,7 +17,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.util.Objects;
 
-import static com.itender.analytics.alarm.enums.StatusEnum.ELASTICSEARCH_QUERY_ERROR;
+import static com.itender.analytics.alarm.enums.BizExceptionEnum.ELASTICSEARCH_EXECUTE_QUERY_ERROR;
 
 /**
  * @author yuanhewei
@@ -81,7 +81,7 @@ public class EsUtils {
             return restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
         } catch (Exception e) {
             log.error("getSearchResponse error! stackTrace: {}, searchRequest: {}", ExceptionUtils.getStackTrace(e), searchRequest.toString());
-            throw new BizException(ELASTICSEARCH_QUERY_ERROR);
+            throw new BizException(ELASTICSEARCH_EXECUTE_QUERY_ERROR);
         }
     }
 

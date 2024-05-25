@@ -4,7 +4,6 @@ import com.itender.analytics.alarm.domain.Result;
 import com.itender.analytics.alarm.enums.StatusEnum;
 import com.itender.analytics.alarm.exception.BizException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-    @Value("${spring.application.name}")
-    private String applicationName;
 
     @ResponseBody
     @ExceptionHandler(value = BizException.class)
@@ -28,7 +24,7 @@ public class GlobalExceptionHandler {
     /**
      * 其他异常拦截
      *
-     * @param ex      异常
+     * @param e       异常
      * @param request 请求参数
      * @return 接口响应
      */

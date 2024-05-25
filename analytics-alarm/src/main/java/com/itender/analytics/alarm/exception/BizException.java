@@ -1,7 +1,7 @@
 package com.itender.analytics.alarm.exception;
 
 
-import com.itender.analytics.alarm.enums.StatusEnum;
+import com.itender.analytics.alarm.enums.BizExceptionEnum;
 import lombok.Getter;
 
 import java.text.MessageFormat;
@@ -12,7 +12,7 @@ import java.text.MessageFormat;
  * @description
  */
 @Getter
-public class BizException extends RuntimeException{
+public class BizException extends RuntimeException {
 
     /**
      * 编码
@@ -24,7 +24,7 @@ public class BizException extends RuntimeException{
      */
     private final String msg;
 
-    public BizException(StatusEnum bizExceptionEnum) {
+    public BizException(BizExceptionEnum bizExceptionEnum) {
         this.code = bizExceptionEnum.getCode();
         this.msg = bizExceptionEnum.getMsg();
     }
