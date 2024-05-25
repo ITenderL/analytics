@@ -95,6 +95,7 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.22</version>
         </dependency>
+        <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -133,6 +134,12 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
             <version>1.4.1.Final</version>
+        </dependency>
+        <!--xxljob-->
+        <dependency>
+            <groupId>com.lxgnb</groupId>
+            <artifactId>xxl-job-boot-starter</artifactId>
+            <version>2.3.0-jobinfo-executor-2</version>
         </dependency>
     </dependencies>
     <dependencyManagement>

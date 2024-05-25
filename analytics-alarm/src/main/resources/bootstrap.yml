@@ -1,3 +1,5 @@
+server:
+  port: 8000
 spring:
   application:
     name: analytics-alarm
@@ -107,6 +109,14 @@ spring:
 elasticsearch:
   rest:
     uris: erp-monitor-es01-fh-t.seeke.net:9200
+xxl:
+  job:
+    sdk:
+      admin-url: http://127.0.0.1:8080/xxl-job-admin
+      user-name: admin
+      password: 123456
+      appname: analytics-alarm
+      access-token: analytics-alarm
 logging:
   level:
     com.itender.analysis.alarm.mapper: debug
