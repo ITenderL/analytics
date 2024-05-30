@@ -90,11 +90,11 @@ spring:
         refresh:
           adaptive: true
           period: 10S
-    pool:
-      max-idle: 8
-      min-idle: 1
-      max-active: 8
-      max-wait: -1
+      pool:
+        max-idle: 20
+        min-idle: 8
+        max-active: 100
+        max-wait: -1
     database: 0
     timeout: 100000
     cluster:
