@@ -1,11 +1,12 @@
 package com.itender.analytics.search;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
-@MapperScan(basePackages = "com.itender.analytics.push.mapper")
+@MapperScan(basePackages = "com.itender.analytics.search.mapper")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class SearchApplication {
