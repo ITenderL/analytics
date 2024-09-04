@@ -46,3 +46,13 @@ jwt:
 request:
   login:
     url: /api/user/login
+
+
+aliyun:
+  oss:
+    file:
+      endpoint: oss-cn-guangzhou.aliyuncs.com
+      keyid: LTAI5tPTkRAvKLKnVoJNVTVw
+      keysecret: ODN5AcGXukdtHVIcOw4zS4l0pZbcH8
+      #bucket名称
+      bucketname: manong-authority

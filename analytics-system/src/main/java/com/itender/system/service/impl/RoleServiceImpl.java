@@ -83,9 +83,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean deleteRoleById(Long id) {
-        //删除角色权限关系
+        // 删除角色权限关系
         baseMapper.deleteRolePermissionByRoleId(id);
-        //删除角色
+        // 删除角色
         return baseMapper.deleteById(id)>0;
+    }
+
+    @Override
+    public List<Long> findRoleIdByUserId(Long userId) {
+        return baseMapper.findRoleIdByUserId(userId);
     }
 }

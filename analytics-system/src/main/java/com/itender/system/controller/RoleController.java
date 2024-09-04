@@ -10,6 +10,7 @@ import com.itender.system.service.PermissionService;
 import com.itender.system.service.RoleService;
 import com.itender.system.vo.RolePermissionVO;
 import com.itender.system.vo.query.RoleQueryVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +58,7 @@ public class RoleController {
      * @param role
      * @return
      */
+    @PreAuthorize("hasAuthority('sys:role:add')")
     @Transactional(rollbackFor = Exception.class)
     @PostMapping("/add")
     public Result<Object> add(@RequestBody Role role) {
@@ -72,6 +74,7 @@ public class RoleController {
      * @param role
      * @return
      */
+    @PreAuthorize("hasAuthority('sys:role:edit')")
     @Transactional(rollbackFor = Exception.class)
     @PutMapping("/update")
     public Result<Object> update(@RequestBody Role role) {
@@ -87,6 +90,7 @@ public class RoleController {
      * @param id
      * @return
      */
+    @PreAuthorize("hasAuthority('sys:role:delete')")
     @DeleteMapping("/delete/{id}")
     public Result<Object> delete(@PathVariable Long id) {
         if (roleService.deleteRoleById(id)) {
@@ -101,7 +105,7 @@ public class RoleController {
      * @param id
      * @return
      */
-    // @PreAuthorize("hasAuthority('sys:role:delete')")
+    @PreAuthorize("hasAuthority('sys:role:delete')")
     @GetMapping("/check/{id}")
     public Result<Object> check(@PathVariable Long id) {
         // 调用检查用户角色是否被使用的方法
@@ -117,6 +121,7 @@ public class RoleController {
      * @param rolePermissionDTO
      * @return
      */
+    @PreAuthorize("hasAuthority('sys:role:assign')")
     @PostMapping("/saveRoleAssign")
     public Result<Object> saveRoleAssign(@RequestBody RolePermissionDTO rolePermissionDTO) {
         if (roleService.saveRolePermission(rolePermissionDTO.getRoleId(),
@@ -134,6 +139,7 @@ public class RoleController {
      * @param roleId
      * @return
      */
+    @PreAuthorize("hasAuthority('sys:role:assign')")
     @GetMapping("/getAssignPermissionTree")
     public Result<RolePermissionVO> getAssignPermissionTree(Long userId, Long roleId) {
         // 调用查询权限树数据的方法

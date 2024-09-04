@@ -47,4 +47,8 @@
     <delete id="deleteRolePermissionByRoleId">
         delete from sys_role_permission where role_id = #{id}
     </delete>
+
+    <select id="findRoleIdByUserId" resultType="java.lang.Long">
+        select role_id from sys_user_role where user_id= #{userId}
+    </select>
 </mapper>

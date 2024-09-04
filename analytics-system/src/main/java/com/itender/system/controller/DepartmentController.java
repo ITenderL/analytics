@@ -5,6 +5,7 @@ import com.itender.system.entity.Department;
 import com.itender.system.entity.Result;
 import com.itender.system.service.DepartmentService;
 import com.itender.system.vo.query.DepartmentQueryVO;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,7 +60,7 @@ public class DepartmentController {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    // @PreAuthorize("hasAuthority('sys:department:add')")
+    @PreAuthorize("hasAuthority('sys:department:add')")
     @PostMapping("/add")
     public Result add(@RequestBody Department department) {
         if (departmentService.save(department)) {
@@ -75,7 +76,7 @@ public class DepartmentController {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    // @PreAuthorize("hasAuthority('sys:department:edit')")
+    @PreAuthorize("hasAuthority('sys:department:edit')")
     @PutMapping("/update")
     public Result update(@RequestBody Department department) {
         if (departmentService.updateById(department)) {
@@ -90,7 +91,7 @@ public class DepartmentController {
      * @param id
      * @return
      */
-    // @PreAuthorize("hasAuthority('sys:department:delete')")
+    @PreAuthorize("hasAuthority('sys:department:delete')")
     @GetMapping("/check/{id}")
     public Result check(@PathVariable Long id) {
         //调用查询部门下是否存在子部门的方法
@@ -111,7 +112,7 @@ public class DepartmentController {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    // @PreAuthorize("hasAuthority('sys:department:delete')")
+    @PreAuthorize("hasAuthority('sys:department:delete')")
     @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Long id) {
         if (departmentService.removeById(id)) {

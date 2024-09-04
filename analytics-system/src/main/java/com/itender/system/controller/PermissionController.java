@@ -120,6 +120,5 @@ public class PermissionController {
         }
         return Result.success();
     }
-
 }
 
