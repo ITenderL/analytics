@@ -4,8 +4,7 @@ package com.itender.system.controller;
 import com.itender.system.entity.Department;
 import com.itender.system.entity.Result;
 import com.itender.system.service.DepartmentService;
-import com.itender.system.vo.query.DepartmentQueryVo;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.itender.system.vo.query.DepartmentQueryVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -32,7 +31,7 @@ public class DepartmentController {
      * @return
      */
     @GetMapping("/list")
-    public Result list(DepartmentQueryVo departmentQueryVo) {
+    public Result list(DepartmentQueryVO departmentQueryVo) {
         //调用查询部门列表方法
         List<Department> departmentList = departmentService.findDepartmentList(departmentQueryVo);
         //返回数据

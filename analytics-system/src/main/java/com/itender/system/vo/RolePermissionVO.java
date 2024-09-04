@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RolePermissionVo {
+public class RolePermissionVO {
 
     /**
      * 菜单数据

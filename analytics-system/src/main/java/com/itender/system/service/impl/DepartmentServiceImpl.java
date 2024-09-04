@@ -8,7 +8,7 @@ import com.itender.system.mapper.DepartmentMapper;
 import com.itender.system.mapper.UserMapper;
 import com.itender.system.service.DepartmentService;
 import com.itender.system.utils.DepartmentUtils;
-import com.itender.system.vo.query.DepartmentQueryVo;
+import com.itender.system.vo.query.DepartmentQueryVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,7 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
      * @return
      */
     @Override
-    public List<Department> findDepartmentList(DepartmentQueryVo departmentQueryVo) {
+    public List<Department> findDepartmentList(DepartmentQueryVO departmentQueryVo) {
         //创建条件构造器对象
         QueryWrapper<Department> queryWrapper = new QueryWrapper<>();
         //部门名称

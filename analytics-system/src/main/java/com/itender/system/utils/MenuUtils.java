@@ -1,7 +1,7 @@
 package com.itender.system.utils;
 
 import com.itender.system.entity.Permission;
-import com.itender.system.vo.RouterVo;
+import com.itender.system.vo.RouterVO;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
@@ -23,16 +23,16 @@ public class MenuUtils {
      * @param pid      父菜单ID
      * @return
      */
-    public static List<RouterVo> makeRouter(List<Permission> menuList, Long pid) {
+    public static List<RouterVO> makeRouter(List<Permission> menuList, Long pid) {
         //创建集合保存路由信息
-        List<RouterVo> routerVoList = new ArrayList<>();
+        List<RouterVO> routerVoList = new ArrayList<>();
         //判断菜单列表是否为空，如果不为空则使用菜单列表，否则创建集合对象
         Optional.ofNullable(menuList).orElse(new ArrayList<>())
                 // 筛选不为空的菜单及与菜单父ID相同的数据
                 .stream().filter(item -> Objects.nonNull(item) && item.getParentId().equals(pid))
                 .forEach(item -> {
                     // 创建路由信息对象
-                    RouterVo routerVo = new RouterVo();
+                    RouterVO routerVo = new RouterVO();
                     routerVo.setName(item.getName());//路由名称
                     routerVo.setPath(item.getPath());//路由地址
                     //判断当前菜单是否是一级菜单
@@ -46,7 +46,7 @@ public class MenuUtils {
                     //设置Meta信息
                     routerVo.setMeta(routerVo.new Meta(item.getLabel(), item.getIcon(), item.getCode().split(",")));
                     //递归生成路由
-                    List<RouterVo> children = makeRouter(menuList, item.getId());//子菜单
+                    List<RouterVO> children = makeRouter(menuList, item.getId());//子菜单
                     routerVo.setChildren(children);//设置子路由到路由对象中
                     //将路由信息添加到集合中
                     routerVoList.add(routerVo);

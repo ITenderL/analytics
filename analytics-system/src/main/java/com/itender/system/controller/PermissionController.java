@@ -4,7 +4,7 @@ package com.itender.system.controller;
 import com.itender.system.entity.Permission;
 import com.itender.system.entity.Result;
 import com.itender.system.service.PermissionService;
-import com.itender.system.vo.query.PermissionQueryVo;
+import com.itender.system.vo.query.PermissionQueryVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class PermissionController {
      * @return
      */
     @GetMapping("/list")
-    public Result list(PermissionQueryVo permissionQueryVo) {
+    public Result list(PermissionQueryVO permissionQueryVo) {
         //调用查询菜单列表的方法
         List<Permission> permissionList = permissionService.findPermissionList(permissionQueryVo);
         //返回数据

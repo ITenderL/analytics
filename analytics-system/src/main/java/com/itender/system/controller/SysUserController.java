@@ -8,7 +8,7 @@ import com.itender.system.entity.UserInfo;
 import com.itender.system.service.RedisService;
 import com.itender.system.utils.JwtUtils;
 import com.itender.system.utils.MenuUtils;
-import com.itender.system.vo.RouterVo;
+import com.itender.system.vo.RouterVO;
 import com.itender.system.vo.TokenVO;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.Authentication;
@@ -127,7 +127,7 @@ public class SysUserController {
                 .filter(item -> Objects.nonNull(item) && !Objects.equals(item.getType(), 2))
                 .collect(Collectors.toList());
         //生成路由数据
-        List<RouterVo> routerVoList = MenuUtils.makeRouter(collect, 0L);
+        List<RouterVO> routerVoList = MenuUtils.makeRouter(collect, 0L);
         //返回数据
         return Result.success(routerVoList);
     }

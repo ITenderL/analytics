@@ -2,7 +2,7 @@ package com.itender.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itender.system.entity.Department;
-import com.itender.system.vo.query.DepartmentQueryVo;
+import com.itender.system.vo.query.DepartmentQueryVO;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface DepartmentService extends IService<Department> {
      * @param departmentQueryVo
      * @return
      */
-    List<Department> findDepartmentList(DepartmentQueryVo departmentQueryVo);
+    List<Department> findDepartmentList(DepartmentQueryVO departmentQueryVo);
 
     /**
      * 查询上级部门列表

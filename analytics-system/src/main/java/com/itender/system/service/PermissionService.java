@@ -2,8 +2,8 @@ package com.itender.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.itender.system.entity.Permission;
-import com.itender.system.vo.RolePermissionVo;
-import com.itender.system.vo.query.PermissionQueryVo;
+import com.itender.system.vo.RolePermissionVO;
+import com.itender.system.vo.query.PermissionQueryVO;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public interface PermissionService extends IService<Permission> {
      * @param permissionQueryVo
      * @return
      */
-    List<Permission> findPermissionList(PermissionQueryVo permissionQueryVo);
+    List<Permission> findPermissionList(PermissionQueryVO permissionQueryVo);
 
     /**
      * 查询上级菜单列表
@@ -56,5 +56,5 @@ public interface PermissionService extends IService<Permission> {
      * @param roleId
      * @return
      */
-    RolePermissionVo findPermissionTree(Long userId, Long roleId);
+    RolePermissionVO findPermissionTree(Long userId, Long roleId);
 }

@@ -5,5 +5,5 @@ import com.itender.system.entity.Department;
 import lombok.Data;
 
 @Data
-public class DepartmentQueryVo extends Department {
+public class DepartmentQueryVO extends Department {
 }

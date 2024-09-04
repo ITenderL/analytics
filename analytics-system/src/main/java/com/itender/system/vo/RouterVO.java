@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class RouterVo {
+public class RouterVO {
 
     //路由地址
     private String path;
@@ -35,6 +35,6 @@ public class RouterVo {
     }
 
     //子路由
-    private List<RouterVo> children = new ArrayList<RouterVo>();
+    private List<RouterVO> children = new ArrayList<RouterVO>();
 
 }

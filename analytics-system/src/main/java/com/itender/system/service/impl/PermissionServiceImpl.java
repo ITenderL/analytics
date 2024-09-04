@@ -8,8 +8,8 @@ import com.itender.system.mapper.PermissionMapper;
 import com.itender.system.mapper.UserMapper;
 import com.itender.system.service.PermissionService;
 import com.itender.system.utils.MenuUtils;
-import com.itender.system.vo.RolePermissionVo;
-import com.itender.system.vo.query.PermissionQueryVo;
+import com.itender.system.vo.RolePermissionVO;
+import com.itender.system.vo.query.PermissionQueryVO;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -45,7 +45,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
      * @return
      */
     @Override
-    public List<Permission> findPermissionList(PermissionQueryVo permissionQueryVo) {
+    public List<Permission> findPermissionList(PermissionQueryVO permissionQueryVo) {
         //创建条件构造器对象
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("is_delete", 0);
@@ -108,7 +108,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
      * @return
      */
     @Override
-    public RolePermissionVo findPermissionTree(Long userId, Long roleId) {
+    public RolePermissionVO findPermissionTree(Long userId, Long roleId) {
         // 1.查询当前登录用户信息
         User user = userMapper.selectById(userId);
         // 创建集合保存权限菜单
@@ -145,6 +145,6 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
                             });
                 });
         // 创建RolePermissionVo类对象
-        return new RolePermissionVo(permissionList, listIds.toArray());
+        return new RolePermissionVO(permissionList, listIds.toArray());
     }
 }
