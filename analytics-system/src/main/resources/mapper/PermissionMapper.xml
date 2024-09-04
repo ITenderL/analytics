@@ -49,7 +49,10 @@
     </select>
 
     <select id="findPermissionListByRoleId" resultMap="BaseResultMap">
-        select * from sys_permission t1 inner join sys_role_permission t2 on t2.permission_id = t1.id
-        where t2.role_id = #{roleId} and t1.is_delete = 0
+        select *
+        from sys_permission t1
+                 inner join sys_role_permission t2 on t2.permission_id = t1.id
+        where t2.role_id = #{roleId}
+          and t1.is_delete = 0
     </select>
 </mapper>

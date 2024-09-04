@@ -11,8 +11,10 @@ import com.itender.system.service.RoleService;
 import com.itender.system.vo.query.RoleQueryVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,6 +33,22 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Resource
     private RoleMapper baseMapper;
+
+    /**
+     * 保存角色权限
+     *
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean saveRolePermission(Long roleId, List<Long> permissionIds) {
+        // 删除该角色对应的权限信息
+        baseMapper.deleteRolePermission(roleId);
+        // 保存角色权限
+        return baseMapper.saveRolePermission(roleId, permissionIds) > 0;
+    }
 
     @Override
     public IPage<Role> findRoleListByUserId(IPage<Role> page, RoleQueryVO roleQueryVo) {
@@ -54,5 +72,20 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     public boolean hashRoleCount(Long id) {
         return baseMapper.getRoleCountByRoleId(id) > 0;
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param id
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean deleteRoleById(Long id) {
+        //删除角色权限关系
+        baseMapper.deleteRolePermissionByRoleId(id);
+        //删除角色
+        return baseMapper.deleteById(id)>0;
     }
 }

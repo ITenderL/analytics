@@ -4,8 +4,10 @@ package com.itender.system.controller;
 import com.itender.system.entity.Permission;
 import com.itender.system.entity.Result;
 import com.itender.system.service.PermissionService;
+import com.itender.system.vo.RolePermissionVO;
 import com.itender.system.vo.query.PermissionQueryVO;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -58,6 +60,7 @@ public class PermissionController {
      * @param permission
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @PreAuthorize("hasAuthority('sys:menu:add')")
     @PostMapping("/add")
     public Result add(@RequestBody Permission permission) {
@@ -74,6 +77,7 @@ public class PermissionController {
      * @param permission
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @PreAuthorize("hasAuthority('sys:menu:edit')")
     @PutMapping("/update")
     public Result update(@RequestBody Permission permission) {
@@ -90,6 +94,7 @@ public class PermissionController {
      * @param id
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     @PreAuthorize("hasAuthority('sys:menu:delete')")
     @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Long id) {
@@ -115,5 +120,6 @@ public class PermissionController {
         }
         return Result.success();
     }
+
 }
 

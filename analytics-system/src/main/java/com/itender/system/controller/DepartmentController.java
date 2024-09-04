@@ -5,6 +5,7 @@ import com.itender.system.entity.Department;
 import com.itender.system.entity.Result;
 import com.itender.system.service.DepartmentService;
 import com.itender.system.vo.query.DepartmentQueryVO;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -57,6 +58,7 @@ public class DepartmentController {
      * @param department
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     // @PreAuthorize("hasAuthority('sys:department:add')")
     @PostMapping("/add")
     public Result add(@RequestBody Department department) {
@@ -72,6 +74,7 @@ public class DepartmentController {
      * @param department
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     // @PreAuthorize("hasAuthority('sys:department:edit')")
     @PutMapping("/update")
     public Result update(@RequestBody Department department) {
@@ -107,6 +110,7 @@ public class DepartmentController {
      * @param id
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     // @PreAuthorize("hasAuthority('sys:department:delete')")
     @DeleteMapping("/delete/{id}")
     public Result delete(@PathVariable Long id) {
