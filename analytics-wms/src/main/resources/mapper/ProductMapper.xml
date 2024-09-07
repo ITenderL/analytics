@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itender.wms.mapper.ProductMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itender.wms.entity.Product">
+        <id column="product_id" property="productId"/>
+        <result column="store_id" property="storeId"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="product_name" property="productName"/>
+        <result column="product_num" property="productNum"/>
+        <result column="product_invent" property="productInvent"/>
+        <result column="type_id" property="typeId"/>
+        <result column="supply_id" property="supplyId"/>
+        <result column="place_id" property="placeId"/>
+        <result column="unit_id" property="unitId"/>
+        <result column="introduce" property="introduce"/>
+        <result column="up_down_state" property="upDownState"/>
+        <result column="in_price" property="inPrice"/>
+        <result column="sale_price" property="salePrice"/>
+        <result column="mem_price" property="memPrice"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="imgs" property="imgs"/>
+        <result column="product_date" property="productDate"/>
+        <result column="supp_date" property="suppDate"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        product_id,
+        store_id,
+        brand_id,
+        product_name,
+        product_num,
+        product_invent,
+        type_id,
+        supply_id,
+        place_id,
+        unit_id,
+        introduce,
+        up_down_state,
+        in_price,
+        sale_price,
+        mem_price,
+        create_time,
+        update_time,
+        create_by,
+        update_by,
+        imgs,
+        product_date,
+        supp_date
+    </sql>
+
+    <select id="selectProductPage" resultMap="BaseResultMap">
+        select t1.*,
+               t2.store_name,
+               t3.brand_name,
+               t4.type_name,
+               t5.supply_name,
+               t6.place_name,
+               t7.unit_name
+        from t_product t1,
+             t_store t2,
+             t_brand t3,
+             t_product_type t4,
+             t_supply t5,
+             t_place t6,
+             t_unit t7
+        where t1.store_id = t2.store_id
+          and t1.brand_id = t3.brand_id
+          and t1.type_id = t4.type_id
+          and t1.supply_id = t5.supply_id
+          and t1.place_id = t6.place_id
+          and t1.unit_id = t7.unit_id
+
+        <if test="product.storeId != null">
+            and t1.store_id = #{product.storeId}
+        </if>
+        <if test="product.productName != null and product.productName != ''">
+            and t1.product_name like concat('%', #{product.productName}, '%')
+        </if>
+        <if test="product.brandName != null and product.brandName != ''">
+            and t3.brand_name like concat('%', #{product.brandName}, '%')
+        </if>
+        <if test="product.typeName != null and product.typeName != ''">
+            and t4.type_name like concat('%', #{product.typeName}, '%')
+        </if>
+        <if test="product.supplyName != null and product.supplyName != ''">
+            and t5.supply_name like concat('%', #{product.supplyName}, '%')
+        </if>
+        <if test="product.placeName != null and product.placeName != ''">
+            and t6.place_name like concat('%', #{product.placeName}, '%')
+        </if>
+        <if test="product.upDownState != null and product.upDownState != ''">
+            and t1.up_down_state = #{product.upDownState}
+        </if>
+        <if test="product.isOverDate != null and product.isOverDate != '' and
+        product.isOverDate == 1">
+            and date_format(now(), '%y-%m-%d') &gt; t1.supp_date
+        </if>
+        <if test="product.isOverDate != null and product.isOverDate != '' and
+        product.isOverDate == 0">
+            and date_format(now(), '%y-%m-%d') &lt; t1.supp_date
+        </if>
+        order by t1.create_time desc
+    </select>
+
+    <select id="selectProductCount" resultType="java.lang.Integer">
+        select count(*)
+        from product t1,
+             store t2,
+             brand t3,
+             product_type t4,
+             supply t5,
+             place t6,
+             unit t7
+        where t1.store_id = t2.store_id
+          and t1.brand_id = t3.brand_id
+          and t1.type_id = t4.type_id
+          and t1.supply_id = t5.supply_id
+          and t1.place_id = t6.place_id
+          and t1.unit_id = t7.unit_id
+
+        <if test="storeId != null">
+            and t1.store_id = #{storeId}
+        </if>
+        <if test="productName != null and productName != ''">
+            and t1.product_name like concat('%', #{productName}, '%')
+        </if>
+        <if test="brandName != null and brandName != ''">
+            and t3.brand_name like concat('%', #{brandName}, '%')
+        </if>
+        <if test="typeName != null and typeName != ''">
+            and t4.type_name like concat('%', #{typeName}, '%')
+        </if>
+        <if test="supplyName != null and supplyName != ''">
+            and t5.supply_name like concat('%', #{supplyName}, '%')
+        </if>
+        <if test="placeName != null and placeName != ''">
+            and t6.place_name like concat('%', #{placeName}, '%')
+        </if>
+        <if test="upDownState != null and upDownState != ''">
+            and t1.up_down_state = #{upDownState}
+        </if>
+        <!--
+          如果方法参数Product对象的isOverDate属性值为1(查询已过期商品),则查询
+          当前时间大于product表中supp_date列的时间的商品;
+          反之如果方法参数Product对象的isOverDate属性值为0(查询未过期商品),则
+          查询当前时间小于product表中supp_date列的时间的商品;
+        -->
+        <if test="isOverDate != null and isOverDate != '' and isOverDate == 1">
+            and date_format(now(), '%y-%m-%d') &gt; t1.supp_date
+        </if>
+        <if test="isOverDate != null and isOverDate != '' and isOverDate == 0">
+            and date_format(now(), '%y-%m-%d') &lt; t1.supp_date
+        </if>
+    </select>
+
+    <update id="updateUpDownStateById">
+        update t_product
+        set up_down_state = #{upDownState},
+            update_by     = #{userId}
+        where product_id = #{productId}
+    </update>
+
+    <update id="updateProduct">
+        <!--商品上下架状态、创建时间、创建者字段值不用改-->
+        update t_product
+        set store_id       = #{storeId},
+            brand_id       = #{brandId},
+            product_name   = #{productName},
+            product_num    = #{productNum},
+            product_invent = #{productInvent},
+            type_id        = #{typeId},
+            supply_id      = #{supplyId},
+            place_id       = #{placeId},
+            unit_id        = #{unitId},
+            introduce      = #{introduce},
+            in_price       = #{inPrice},
+            sale_price     = #{salePrice},
+            mem_price      = #{memPrice},
+            update_time    = now(),
+            update_by      = #{updateBy},
+            imgs           = #{imgs},
+            product_date   = #{productDate},
+            supp_date      = #{suppDate}
+        where product_id = #{productId}
+    </update>
+
+    <select id="selectByNum" resultMap="BaseResultMap">
+        select product_id productId
+        from t_product
+        where product_num = #{productNum}
+    </select>
+</mapper>

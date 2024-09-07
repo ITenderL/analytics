@@ -1,0 +1,38 @@
+#server:
+#  port: 9999
+#spring:
+#  application:
+#    name: analytics-wms
+#  profiles:
+#    active: dev
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/db_analytics?userUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: root
+#  redis:
+#    host: 192.168.201.122
+#    port: 6379
+#    timeout: 10000
+#    database: 0
+#    expire: 60000
+#  #JSON日期格式化
+#  jackson:
+#    date-format: yyyy-MM-dd
+#    #JSON日期格式化设置时区为上海
+#    time-zone: Asia/Shanghai
+#  #日期格式化
+#  mvc:
+#    format:
+#      date: yyyy-MM-dd
+#      date-time: yyyy-MM-dd HH:mm:ss
+#mybatis_plus:
+#  mapper-locations: classpath*:/mapper/**/*.xml
+#  type_aliases_package: com.itender.wms.entity
+##显示日志
+#logging:
+##  level:
+#    com.itender.wms: debug
+#
+#
+#

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itender.wms.mapper.PlaceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itender.wms.entity.Place">
+        <id column="place_id" property="placeId" />
+        <result column="place_name" property="placeName" />
+        <result column="place_num" property="placeNum" />
+        <result column="introduce" property="introduce" />
+        <result column="is_delete" property="isDelete" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        place_id, place_name, place_num, introduce, is_delete
+    </sql>
+
+</mapper>

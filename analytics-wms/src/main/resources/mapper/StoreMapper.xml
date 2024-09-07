@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itender.wms.mapper.StoreMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.itender.wms.entity.Store">
+        <id column="store_id" property="storeId" />
+        <result column="store_name" property="storeName" />
+        <result column="store_num" property="storeNum" />
+        <result column="store_address" property="storeAddress" />
+        <result column="concat" property="concat" />
+        <result column="phone" property="phone" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        store_id, store_name, store_num, store_address, concat, phone
+    </sql>
+
+</mapper>
