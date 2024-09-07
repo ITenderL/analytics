@@ -1,7 +1,6 @@
 package com.itender.analytics.push.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +16,7 @@ public class AlarmResultConsumer {
      *
      * @param record
      */
-    @KafkaListener(topics = {"topic-test"})
+    // @KafkaListener(topics = {"topic-test"})
     public void onMessage1(ConsumerRecord<?, ?> record) {
         // 消费的哪个topic、partition的消息,打印出消息内容
         System.out.println("简单消费Topic：" + record.topic() + " **分区: " + record.partition() + " **值内容: " + record.value());
@@ -26,7 +25,7 @@ public class AlarmResultConsumer {
     /**
      * @param record
      * @Title 指定topic、partition、offset消费
-     * @description  同时监听topic1和topic2，监听topic1的0号分区、
+     * @description 同时监听topic1和topic2，监听topic1的0号分区、
      * topic2的 "0号和1号" 分区，指向1号分区的offset初始值为8
      */
     // @KafkaListener(id = "consumer1", groupId = "felix-group", topicPartitions = {
