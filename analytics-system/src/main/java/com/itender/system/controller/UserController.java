@@ -65,7 +65,7 @@ public class UserController {
     @GetMapping("/list")
     public Result<IPage<User>> list(UserQueryVO userQueryVo) {
         // 创建分页对象
-        IPage<User> page = new Page<User>(userQueryVo.getPageNo(), userQueryVo.getPageSize());
+        IPage<User> page = new Page<>(userQueryVo.getPageNo(), userQueryVo.getPageSize());
         // 调用分页查询方法
         userService.findUserListByPage(page, userQueryVo);
         // 返回数据

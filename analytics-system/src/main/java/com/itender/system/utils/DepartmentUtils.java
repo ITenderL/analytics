@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -22,10 +23,10 @@ public class DepartmentUtils {
      */
     public static List<Department> makeDepartmentTree(List<Department> departmentList, Long pid) {
         // 创建集合保存部门信息
-        List<Department> list = new ArrayList<Department>();
+        List<Department> list = new ArrayList<>();
         // 判断部门列表是否为空，如果不为空则使用部门列表，否则创建集合对象
-        Optional.ofNullable(departmentList).orElse(new ArrayList<Department>())
-                .stream().filter(item -> item != null && item.getPid() == pid)
+        Optional.ofNullable(departmentList).orElse(new ArrayList<>())
+                .stream().filter(item -> item != null && Objects.equals(item.getPid(), pid))
                 .forEach(item -> {
                     //创建部门对象
                     Department department = new Department();

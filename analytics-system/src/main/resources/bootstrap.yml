@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: analytics-system
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.201.122:8848
+        namespace: analytics-dev
+        # cluster-name: HZ # 杭州集群
+      config:
+        server-addr: 192.168.201.122:8848
+        namespace: analytics-dev
+        prefix: ${spring.application.name}
+        file-extension: yaml  # 文件后缀
+

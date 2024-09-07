@@ -1,58 +1,56 @@
-server:
-  port: 8888
-spring:
-  application:
-    name: analytics-system
-  profiles:
-    active: dev
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_authority_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-    #    url: jdbc:mysql://127.0.0.1:3306/db_authority_system?userUnicode=true&&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: root
-  redis:
-    host: 192.168.201.122
-    port: 6379
-    timeout: 10000
-    database: 0
-    expire: 60000
-  #JSON日期格式化
-  jackson:
-    date-format: yyyy-MM-dd
-    #JSON日期格式化设置时区为上海
-    time-zone: Asia/Shanghai
-  #日期格式化
-  mvc:
-    format:
-      date: yyyy-MM-dd
-      date-time: yyyy-MM-dd HH:mm:ss
-mybatis_plus:
-  mapper-locations: classpath*:/mapper/**/*.xml
-  type_aliases_package: com.itender.system.entity
-#显示日志
-logging:
-  level:
-    com.itender.system: debug
+#server:
+#  port: 8888
+#spring:
+#  application:
+#    name: analytics-system
+#  profiles:
+#    active: dev
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.201.122:8848
+#        namespace: analytics_dev
+#        # cluster-name: HZ # 杭州集群
+#      config:
+#        server-addr: 192.168.201.122:8848
+#        namespace: analytics_dev
+#        file-extension: yaml  # 文件后缀
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/db_authority_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+#    #    url: jdbc:mysql://127.0.0.1:3306/db_authority_system?userUnicode=true&&characterEncoding=utf8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+#    username: root
+#    password: root
+#  redis:
+#    host: 192.168.201.122
+#    port: 6379
+#    timeout: 10000
+#    database: 0
+#    expire: 60000
+#  #JSON日期格式化
+#  jackson:
+#    date-format: yyyy-MM-dd
+#    #JSON日期格式化设置时区为上海
+#    time-zone: Asia/Shanghai
+#  #日期格式化
+#  mvc:
+#    format:
+#      date: yyyy-MM-dd
+#      date-time: yyyy-MM-dd HH:mm:ss
+#mybatis_plus:
+#  mapper-locations: classpath*:/mapper/**/*.xml
+#  type_aliases_package: com.itender.system.entity
+##显示日志
+#logging:
+#  level:
+#    com.itender.system: debug
+#
+##jwt配置
+##密钥
+#jwt:
+#  secret: com.itender
+#  #过期时间
+#  expiration: 1800000
+#
 
-#jwt配置
-#密钥
-jwt:
-  secret: com.itender
-  #过期时间
-  expiration: 1800000
 
-#登录请求地址(自定义)
-request:
-  login:
-    url: /api/user/login
-
-
-aliyun:
-  oss:
-    file:
-      endpoint: oss-cn-guangzhou.aliyuncs.com
-      keyid: LTAI5tPTkRAvKLKnVoJNVTVw
-      keysecret: ODN5AcGXukdtHVIcOw4zS4l0pZbcH8
-      #bucket名称
-      bucketname: manong-authority
