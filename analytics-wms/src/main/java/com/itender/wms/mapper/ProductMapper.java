@@ -57,4 +57,12 @@ public interface ProductMapper extends BaseMapper<Product> {
      * @return
      */
     Product selectByNum(String num);
+
+    /**
+     * 更新库存
+     *
+     * @param productId
+     * @param inventory
+     */
+    void updateProductInvent(@Param("productId") Integer productId, @Param("inventory") Integer inventory);
 }

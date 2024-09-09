@@ -194,4 +194,10 @@
         from t_product
         where product_num = #{productNum}
     </select>
+
+    <update id="updateProductInvent">
+        update t_product
+        set product_invent = product_invent + #{inventory}
+        where product_id = #{productId}
+    </update>
 </mapper>

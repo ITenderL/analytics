@@ -1,21 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itender.wms.dao.InStoreMapper">
-
+<mapper namespace="com.itender.wms.mapper.InStoreMapper">
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.itender.wms.entity.InStore">
-        <id column="ins_id" property="insId" />
-        <result column="store_id" property="storeId" />
-        <result column="product_id" property="productId" />
-        <result column="in_num" property="inNum" />
-        <result column="create_by" property="createBy" />
-        <result column="create_time" property="createTime" />
-        <result column="is_in" property="isIn" />
+        <id column="ins_id" property="insId"/>
+        <result column="store_id" property="storeId"/>
+        <result column="product_id" property="productId"/>
+        <result column="in_num" property="inNum"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_in" property="isIn"/>
+        <result column="store_name" property="storeName"/>
+        <result column="product_name" property="productName"/>
+        <result column="in_price" property="inPrice"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ins_id, store_id, product_id, in_num, create_by, create_time, is_in
+        ins_id,
+        store_id,
+        product_id,
+        in_num,
+        create_by,
+        create_time,
+        is_in
     </sql>
 
+    <select id="selectInStoreListByPage" resultMap="BaseResultMap">
+        select t1.*,
+               t2.store_name,
+               t3.product_name,
+               t3.in_price
+        <!--               t4.user_code-->
+        from t_in_store t1,
+             t_store t2,
+             t_product t3
+        <!--             t_user_info t4-->
+        where t1.store_id = t2.store_id
+          and t1.product_id = t3.product_id
+        <!--          and t1.create_by = t4.user_id-->
+
+        <if test="inStore.storeId != null">
+            and t1.store_id = #{inStore.storeId}
+        </if>
+        <if test="inStore.productName != null and inStore.productName != ''">
+            and t3.product_name like concat('%', #{inStore.productName}, '%')
+        </if>
+        <if test="inStore.startTime != null and inStore.startTime != ''">
+            and t1.create_time &gt;= #{inStore.startTime}
+        </if>
+        <if test="inStore.endTime != null and inStore.endTime != ''">
+            and t1.create_time &lt;= #{inStore.endTime}
+        </if>
+        order by t1.create_time desc
+    </select>
+
+    <update id="updateIsInById">
+        update t_in_store set is_in = 1
+        where ins_id = #{insId};
+    </update>
 </mapper>

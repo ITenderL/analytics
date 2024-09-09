@@ -13,6 +13,7 @@ public enum BizExceptionEnum {
     TOKEN_IS_EXPIRED(401, "token已过期!"),
     TOKEN_CHECK_FAILED(401, "token验证失败!"),
     THE_PRODUCT_NUM_PRODUCT_ALREADY_EXIST(600, "该编号的商品已经存在!"),
+    PRODUCT_INSUFFICIENT_INVENTORY(601, "库存不足!"),
     ;
 
     private final Integer code;

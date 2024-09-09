@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -58,4 +59,28 @@ public class InStore implements Serializable {
      * 0 否 1 是,是否入库
      */
     private String isIn;
+
+    /**
+     * 关联的采购单id
+     */
+    @TableField(exist = false)
+    private Integer buyId;
+
+    /**
+     * 仓库名称
+     */
+    @TableField(exist = false)
+    private String storeName;
+
+    /**
+     * 商品名称
+     */
+    @TableField(exist = false)
+    private String productName;
+
+    /**
+     * 进货单价
+     */
+    @TableField(exist = false)
+    private BigDecimal inPrice;
 }

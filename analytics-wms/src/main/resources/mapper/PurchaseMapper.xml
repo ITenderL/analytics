@@ -1,25 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itender.wms.dao.BuyListMapper">
-
+<mapper namespace="com.itender.wms.mapper.PurchaseMapper">
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.itender.wms.entity.Purchase">
-        <id column="buy_id" property="buyId" />
-        <result column="product_id" property="productId" />
-        <result column="store_id" property="storeId" />
-        <result column="buy_num" property="buyNum" />
-        <result column="fact_buy_num" property="factBuyNum" />
-        <result column="buy_time" property="buyTime" />
-        <result column="supply_id" property="supplyId" />
-        <result column="place_id" property="placeId" />
-        <result column="buy_user" property="buyUser" />
-        <result column="phone" property="phone" />
-        <result column="is_in" property="isIn" />
+        <id column="buy_id" property="buyId"/>
+        <result column="product_id" property="productId"/>
+        <result column="store_id" property="storeId"/>
+        <result column="buy_num" property="buyNum"/>
+        <result column="fact_buy_num" property="factBuyNum"/>
+        <result column="buy_time" property="buyTime"/>
+        <result column="supply_id" property="supplyId"/>
+        <result column="place_id" property="placeId"/>
+        <result column="buy_user" property="buyUser"/>
+        <result column="phone" property="phone"/>
+        <result column="is_in" property="isIn"/>
+        <result column="store_name" property="storeName"/>
+        <result column="product_name" property="productName"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        buy_id, product_id, store_id, buy_num, fact_buy_num, buy_time, supply_id, place_id, buy_user, phone, is_in
+        buy_id,
+        product_id,
+        store_id,
+        buy_num,
+        fact_buy_num,
+        buy_time,
+        supply_id,
+        place_id,
+        buy_user,
+        phone,
+        is_in
     </sql>
 
+    <select id="selectPurchaseByPage" resultMap="BaseResultMap">
+        select t1.*, t2.product_name, t3.store_name
+        from t_buy_list t1,
+             t_product t2,
+             t_store t3
+        where t1.product_id = t2.product_id
+          and t1.store_id = t3.store_id
+        <if test="purchase.storeId != null">
+            and t1.store_id = #{purchase.storeId}
+        </if>
+        <if test="purchase.productName != null and purchase.productName != ''">
+            and t2.product_name like concat('%', #{purchase.productName}, '%')
+        </if>
+        <if test="purchase.buyUser != null and purchase.buyUser != ''">
+            and t1.buy_user like concat('%', #{purchase.buyUser}, '%')
+        </if>
+        <if test="purchase.isIn != null and purchase.isIn != ''">
+            and t1.is_in = #{purchase.isIn}
+        </if>
+        <if test="purchase.startTime != null and purchase.startTime != ''">
+            and t1.buy_time &gt;= #{purchase.startTime}
+        </if>
+        <if test="purchase.endTime != null and purchase.endTime != ''">
+            and t1.buy_time &lt;= #{purchase.endTime}
+        </if>
+        order by t1.buy_time desc
+    </select>
+
+    <update id="updateStatus">
+        update t_buy_list
+        set is_in = 1
+        where buy_id = #{buyId}
+    </update>
 </mapper>

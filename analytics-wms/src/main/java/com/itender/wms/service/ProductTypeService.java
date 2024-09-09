@@ -21,4 +21,12 @@ public interface ProductTypeService extends IService<ProductType> {
      * @return
      */
     List<ProductType> productTypeTree();
+
+    /**
+     * 检查编码是否存在
+     *
+     * @param typeCode
+     * @return
+     */
+    Boolean checkTypeCode(String typeCode);
 }

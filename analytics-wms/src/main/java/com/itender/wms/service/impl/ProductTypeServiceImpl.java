@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -28,5 +29,14 @@ public class ProductTypeServiceImpl extends ServiceImpl<ProductTypeMapper, Produ
     public List<ProductType> productTypeTree() {
         List<ProductType> typeList = productTypeMapper.selectList(new QueryWrapper<>());
         return TreeUtils.buildProductTypeTree(typeList, 0);
+    }
+
+    @Override
+    public Boolean checkTypeCode(String typeCode) {
+        ProductType productType = productTypeMapper.selectOne(
+                new QueryWrapper<ProductType>()
+                        .eq("type_code", typeCode)
+        );
+        return Objects.isNull(productType);
     }
 }

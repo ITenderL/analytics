@@ -1,6 +1,7 @@
 package com.itender.wms.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -55,7 +56,7 @@ public class Purchase implements Serializable {
     /**
      * 采购时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date buyTime;
 
     /**
@@ -87,4 +88,28 @@ public class Purchase implements Serializable {
      * 是否生成入库单,1.是,0.否
      */
     private String isIn;
+
+    /**
+     * 仓库名称
+     */
+    @TableField(exist = false)
+    private String storeName;
+
+    /**
+     * 商品名称
+     */
+    @TableField(exist = false)
+    private String productName;
+
+    /**
+     * 规格名称
+     */
+    @TableField(exist = false)
+    private String specName;
+
+    /**
+     * 产地名称
+     */
+    @TableField(exist = false)
+    private String placeName;
 }

@@ -8,6 +8,7 @@ package com.itender.system.constants;
 public class RedisConstants {
 
     public static final String AUTH_TOKEN = "authToken:";
+    public static final String USER_TOKEN = "user:";
 
     private RedisConstants() {
     }

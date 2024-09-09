@@ -75,4 +75,16 @@ public class OutStore implements Serializable {
      */
     @TableField(exist = false)
     private BigDecimal salePrice;
+
+    /**
+     * 仓库名称
+     */
+    @TableField(exist = false)
+    private String storeName;
+
+    /**
+     * 商品名称
+     */
+    @TableField(exist = false)
+    private String productName;
 }

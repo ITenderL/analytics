@@ -35,4 +35,12 @@ public interface ProductService extends IService<Product> {
      * @param product
      */
     void updateProduct(Product product);
+
+    /**
+     * 更新库存
+     * 
+     * @param productId
+     * @param inventory
+     */
+    void updateProductInvent(Integer productId, Integer inventory);
 }

@@ -37,5 +37,10 @@ public class ProductTypeController {
     public Result<List<ProductType>> productTypeTree() {
         return Result.success(productTypeService.productTypeTree());
     }
+
+    @GetMapping("/checkTypeCode")
+    public Result<Boolean> checkTypeCode(String typeCode) {
+        return Result.success(productTypeService.checkTypeCode(typeCode));
+    }
 }
 
